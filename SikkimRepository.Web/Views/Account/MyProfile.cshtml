@@ -1,0 +1,145 @@
+﻿@model SikkimRepository.Entities.CustomModels.RegisteredUserVM
+@{
+    ViewBag.Title = "MyProfile";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    List<string> Gender = new List<string> { "Male", "Female" };
+}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Manage Users</h1>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-info"><i class="fas fa-fw fa-hand-holding"></i>Manage Users<small class="text-secondary text-sm-left"><i class="fas fa-fw fa-caret-right"></i>My Profile</small></h6>
+    </div>
+    <div class="card-body">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="col-md-12 text-gray-800">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <strong>Email ID</strong>
+                            </div>
+                            <div class="col-md-9">
+                                <h4 class="text-info">:@Model.MyProfileView.Email</h4>
+                            </div>
+                        </div>
+                    </div>
+                    @if (User.IsInRole("SchoolAdmin"))
+                    {
+                        <div class="col-md-12 text-gray-800">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <strong>School Name</strong>
+                                </div>
+                                <div class="col-md-9">
+                                    <h4 class="text-info">:@Model.MyProfileView.SchooName</h4>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="col-md-12 text-gray-800">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <strong>Reg. Date</strong>
+                            </div>
+                            <div class="col-md-9">
+                                <h4 class="text-info">:@Model.MyProfileView.RegDate.ToString("dd MMM yyyy")</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-gray-800">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <strong>User Active</strong>
+                            </div>
+                            <div class="col-md-9">
+                                @if (Model.MyProfileView.IsActive == true)
+                                {
+                                    <h4 class="text-success">:Yes</h4>
+                                }
+                                else
+                                {
+                                    <h4 class="text-danger">:No</h4>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-gray-800">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <strong>Role</strong>
+                            </div>
+                            <div class="col-md-9">
+                                @if (@User.IsInRole("DeptAdmin"))
+                                {
+                                    <h4 class="text-info">:Department Admin</h4>
+                                }
+                                else
+                                {
+                                    <h4 class="text-info">:School Admin</h4>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="margin-right30">
+                        <img src="~/Content/images/user-img.png" class="img-circle img-thumbnail" style="width: 120px; height: 140px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <hr />
+    <h3 class="text-center text-uppercase">Update your Profile</h3>
+    <div class="card-body pb-4">
+        @using (Html.BeginForm("MyProfile", "Account", new { @area = "" }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.MyProfileView.id)
+            @Html.HiddenFor(m => m.MyProfileView.Email)
+            @Html.HiddenFor(m => m.MyProfileView.SchooID)
+            @Html.HiddenFor(m => m.MyProfileView.IsActive)
+            @Html.HiddenFor(m => m.MyProfileView.RegDate)
+            <div class="col-md-12 mb-3">
+                <i>Please note all fields marked as <strong class="text-danger">*</strong> are mandatory fields.</i>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.MyProfileView.Name, new { @class = "control-label required" })
+                        @Html.TextBoxFor(m => m.MyProfileView.Name, new { @class = "form-control", @autocomplete = "off", @placeholder = "Enter Profile Name" })
+                        @Html.ValidationMessageFor(m => m.MyProfileView.Name)
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.MyProfileView.Designation, new { @class = "control-label required" })
+                        @Html.TextBoxFor(m => m.MyProfileView.Designation, new { @class = "form-control", @autocomplete = "off", @placeholder = "Enter user Designation" })
+                        @Html.ValidationMessageFor(m => m.MyProfileView.Designation)
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.MyProfileView.PhoneNumber, new { @class = "control-label required" })
+                        @Html.TextBoxFor(m => m.MyProfileView.PhoneNumber, new { @class = "form-control", @autocomplete = "off", @placeholder = "Enter Contact No." })
+                        @Html.ValidationMessageFor(m => m.MyProfileView.PhoneNumber)
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.MyProfileView.Gender, new { @class = "control-label required" })
+                        @Html.DropDownListFor(m => m.MyProfileView.Gender, new SelectList(Gender), "----Select Gender----", new { @class = "form-control", id = "Gender" })
+                        @Html.ValidationMessageFor(m => m.MyProfileView.Gender)
+                    </div>
+                </div>
+            </div>
+            <div class="action-div action-style">
+                <a href="/user/dashboard" class="btn btn-secondary btn-user">Back To Dashboard</a>
+                <button type="submit" class="btn btn-primary btn-user float-right">Save</button>
+                <div class="clearfix"></div>
+            </div>
+        }
+    </div>
+</div>
+@*error message*@
+<div id="ErrMsg" style="display:none;">
+    <input type="hidden" id="ErrMsgHiddenField" name="ErrMsg" value="@TempData["ErrMsg"]" />
+</div>

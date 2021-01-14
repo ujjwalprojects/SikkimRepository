@@ -1,0 +1,48 @@
+﻿@model SikkimRepository.Entities.CustomModels.ImageAlbumManageModel
+@{
+    SikkimRepository.Entities.DataAccess.dalImage ObjImg = new SikkimRepository.Entities.DataAccess.dalImage();
+}
+
+<div class="rs-courses-list">
+    @if (Model.GenImageAlbums.ImageAlbumList.Count() > 0)
+    {
+        foreach (var item in Model.GenImageAlbums.ImageAlbumList)
+        {
+            <div class="row course-item">
+                <div class="col-md-6">
+                    <div class="course-img">
+                        <img src="@item.ImageFilePathThumb" alt="Courses Images" />
+                        <a class="image-link" href="/images/photo?id=@item.ImageAlbumID" title="Computer Engineering">
+                            <i class="fa fa-images"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="course-header">
+                        <span class="course-category"><a href="#">@item.ComponentName <small>> @item.SubComponentName</small></a></span>
+                        <h3 class="course-title"><a href="courses-details.html">@item.ImageAlbumTitle</a></h3>
+                        <div class="course-date">
+                            <i class="fa fa-calendar"></i> <span> @item.ProgramDate.ToString("dd MMM yyyy")</span>
+                        </div>
+                    </div>
+                    <div class="course-body">
+                        <div class="course-desc">
+                            <span class="more">
+                                @item.ImageAlbumDesc
+                            </span>
+                        </div>
+                        <div class="course-button p-3">
+                            <a href="/images/photo?id=@item.ImageAlbumID" target="_blank" class="float-right">VIEW MORE IMAGES</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+    else
+    {
+        <h3>No record found..</h3>
+    }
+    <input type="hidden" name="totalRecords" value="@Model.GenImageAlbums.TotalRecords" />
+</div>

@@ -1,0 +1,75 @@
+﻿@model SikkimRepository.Entities.CustomModels.MstBlockVM
+<div id="DataGrid">
+    @if (Model.BlockList.Count() > 0)
+    {
+        <div class="table-responsive p-2">
+            <table class="table table-striped table-condensed table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="vertical-align:middle">
+                            District
+                        </th>
+                        <th class="text-center" style="vertical-align:middle">
+                            Block Name
+                        </th>
+                        <th class="text-center" style="vertical-align:middle">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.BlockList)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                @item.DistName
+                            </td>
+
+                            <td class="text-center">
+                                @item.BlockName
+                            </td>
+
+                            <td class="text-center" style="width: 80px;">
+                                <div style="float: right;">
+                                    <div style="float:left; padding-right: 5px;">
+                                        <a href="@Url.Action("Edit", "Block",new { @Area="Admin", id = item.BlockID})" data-toggle="tooltip" data-placement="bottom" title="Edit">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    </div>
+                                    <div style="float:left; padding-right: 8px;">
+                                        <form action="@Url.Action("Delete", "Block", new { @Area="Admin"})" method="post" data-otf-ajax="true" data-otf-target="#DataGrid">
+                                            @Html.AntiForgeryToken()
+                                            @*@Html.Hidden("sessionXSRFToken", Session["XSRFToken"])*@
+                                            @Html.Hidden("id", item.BlockID)
+                                            <a href="@Url.Action("Delete", "Block", new { @Area = "Admin", id = item.BlockID })" class="delete" title="Delete" data-record="@item.BlockName">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="ns-grid-pager" data-otf-target="#DataGrid">
+                <div class="d-none d-sm-block col-md-3 col-sm-3">
+                    @Model.PagingInfo.TotalItems Record(s)
+                </div>
+                <div class="text-black-50 visible-lg visible-md visible-sm visible-xs col-md-9 col-sm-9 ns-pagination" data-otf-target="#DataGrid" data-otf-actionlink="/admin/block/index">
+                    @Html.PageLinks(Model.PagingInfo, x => Url.Action("index", "block", new { @Area = "Admin", PageNo = x, PageSize = Model.PagingInfo.ItemsPerPage }))
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <h4 class="small font-weight-bold m-4">No record(s) found... </h4>
+    }
+</div>
+@*error message*@
+<div id="ErrMsg" style="display:none;">
+    <input type="hidden" id="ErrMsgHiddenField" name="ErrMsg" value="@TempData["ErrMsg"]" />
+</div>
+

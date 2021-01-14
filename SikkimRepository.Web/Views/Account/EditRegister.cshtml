@@ -1,0 +1,68 @@
+﻿@model SikkimRepository.Web.Models.RegisterUserManageModel
+@{
+    ViewBag.Title = "EditRegister";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    List<string> Gender = new List<string> { "Male", "Female" };
+}
+
+<h1 class="h3 mb-2 text-gray-800">User Management</h1>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-info"><i class="fas fa-fw fa-hand-holding"></i> User Management <small class="text-secondary text-sm-left"><i class="fas fa-fw fa-caret-right"></i>Edit</small></h6>
+    </div>
+    <div class="card-body pb-4">
+        @using (Html.BeginForm("EditRegister", "Account", new { @area = "" }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.EditRegister.id)
+            @Html.HiddenFor(m => m.EditRegister.Email)
+            <div class="col-md-12 mb-3">
+                <i>Please note all fields marked as <strong class="text-danger">*</strong> are mandatory fields.</i>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.EditRegister.SchoolID, new { @class = "control-label required" })
+                        @Html.DropDownListFor(m => m.EditRegister.SchoolID, new SelectList(Model.SchoolList, "SchoolID", "SchoolName"), "-- Select School --", new { @class = "form-control required", id = "ddschool" })
+                        @Html.ValidationMessageFor(m => m.EditRegister.SchoolID)
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.EditRegister.Email, new { @class = "control-label required" })
+                        @Html.TextBoxFor(m => m.EditRegister.Email, new { @class = "form-control", @autocomplete = "off", @placeholder = "Enter Email ID",@disabled= "disabled" })
+                        @Html.ValidationMessageFor(m => m.EditRegister.Email)
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.EditRegister.Name, new { @class = "control-label required" })
+                        @Html.TextBoxFor(m => m.EditRegister.Name, new { @class = "form-control", @autocomplete = "off", @placeholder = "Enter User Name" })
+                        @Html.ValidationMessageFor(m => m.EditRegister.Name)
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.EditRegister.Designation, new { @class = "control-label required" })
+                        @Html.TextBoxFor(m => m.EditRegister.Designation, new { @class = "form-control", @autocomplete = "off", @placeholder = "Enter user Designation" })
+                        @Html.ValidationMessageFor(m => m.EditRegister.Designation)
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.EditRegister.Gender, new { @class = "control-label required" })
+                        @Html.DropDownListFor(m => m.EditRegister.Gender, new SelectList(Gender), "----Select Gender----", new { @class = "form-control", id = "Gender" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.EditRegister.PhoneNumber, new { @class = "control-label required" })
+                        @Html.TextBoxFor(m => m.EditRegister.PhoneNumber, new { @class = "form-control", @autocomplete = "off", @placeholder = "Enter School Address" })
+                        @Html.ValidationMessageFor(m => m.EditRegister.PhoneNumber)
+                    </div>
+                </div>
+            </div>
+            <div class="action-div action-style">
+                <a href="/account/userlist" class="btn btn-secondary btn-user">Back To List</a>
+                <button type="submit" class="btn btn-primary btn-user float-right">Save</button>
+                <div class="clearfix"></div>
+            </div>
+        }
+    </div>
+</div>
+@*error message*@
+<div id="ErrMsg" style="display:none;">
+    <input type="hidden" id="ErrMsgHiddenField" name="ErrMsg" value="@TempData["ErrMsg"]" />
+</div>
+
+

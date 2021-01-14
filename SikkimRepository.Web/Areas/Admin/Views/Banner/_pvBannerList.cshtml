@@ -1,0 +1,55 @@
+﻿@model IEnumerable<SikkimRepository.Entities.Models.utblBanner>
+<div id="DataGrid">
+    @if (Model.Count() > 0)
+    {
+        <div class="row d-flex justify-content-center">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6">
+                        <div class="card-body">
+                            <div>
+                                <img src="@item.BannerThumb" title="@item.BannerTitle" class="img-fluid rounded" style="width:100%" />
+                            </div>
+                            <div class="pt-2">
+                                <small> @item.BannerTitle</small>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div>
+                                <div style="display:inline-block">
+                                    <a href="/admin/banner/edit/@item.BannerID" title="Edit">
+                                        <small> <i class="fa fa-pencil text-primary"></i> Edit</small>
+                                    </a>
+                                </div>
+                                |
+                                <div style="display:inline-block">
+                                    <form method="post" action="/admin/banner/delete" data-otf-ajax="true" data-otf-target="#DataGrid">
+                                        @Html.Hidden("id", item.BannerID)
+                                        @*@Html.Hidden("sessionXSRFToken", Session["XSRFToken"])*@
+                                        @Html.AntiForgeryToken()
+                                        @*<a href="/admin/banner/delete?id=@item.BannerID" class="delete" title="Delete" data-record="Banner">
+                                            <small> <i class="fa fa-trash text-danger"></i> Delete</small>
+                                        </a>*@
+                                        <a href="@Url.Action("delete", "Banner", new { Area = "admin", id = item.BannerID })" class="delete" data-toggle="tooltip" data-placement="bottom" title="Delete"data-record="@item.BannerTitle">
+                                            <small> <i class="fa fa-trash text-danger"></i> Delete</small>
+                                        </a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center p-3">
+            <img src="~/Content/img/no_record.png" /><br />
+            <span class="text-muted">No banner images available..</span>
+        </div>
+    }
+</div>
+@*error message*@
+<div id="ErrMsg" style="display:none;">
+    <input type="hidden" id="ErrMsgHiddenField" name="ErrMsg" value="@TempData["ErrMsg"]" />
+</div>

@@ -1,0 +1,364 @@
+﻿@model SikkimRepository.Entities.CustomModels.GenCustomModel
+@{
+    ViewBag.Title = "GetContentBySubComp";
+    Layout = "~/Views/Shared/_LayoutGenDetail.cshtml";
+}
+@{
+    SikkimRepository.Entities.DataAccess.dalSubComponent ObjSubComp = new SikkimRepository.Entities.DataAccess.dalSubComponent();
+}
+<style>
+    .view-btn a {
+        display: inline-block;
+        margin-left: auto;
+        min-width: 0px;
+        padding: 2px 18px;
+        font-size: 15px;
+        font-weight: 500;
+        text-decoration: none;
+        background-color: #666a4b;
+        color: #fff;
+        float: right;
+    }
+    a {
+        color: #ff0000;
+    }
+    .image a {
+        color: #676767;
+    }
+
+    .rs-courses-3 .course-item .course-img::before {
+        position: unset;
+    }
+
+    .rs-courses-3 .course-footer .course-button a::after {
+        content: "";
+    }
+</style>
+<!-- Courses Details Start -->
+<div class="rs-courses-details pt-100 pb-70">
+    <div class="container">
+        <div class="row mb-30">
+            <div class="col-lg-8 col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="course-meta-style">
+                            <li class="author">
+                                @*<div class="image">
+                                        <img src="images/teachers/2.jpg" width="60" alt="">
+                                    </div>*@
+                                <div class="author-name">
+                                    <a href="#">@Model.Component.ComponentName</a>
+                                    <p>Component</p>
+                                </div>
+                            </li>
+                            <li class="categories">
+                                <a href="#" class="course-name">@Model.SubComponent.SubComponentName</a>
+                                <p>Sub Component</p>
+                            </li>
+                            @*<li>
+                                    4 Reviews
+                                    <div class="client-rating">
+                                        <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i>
+                                    </div>
+                                </li>*@
+                        </ul>
+                    </div>
+                    @*<div class="col-md-4">
+                            <div class="btn-area">
+                                <a href="#">Enroll This Course</a>
+                            </div>
+                        </div>*@
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="course-des-tabs">
+                            <div class="tab-btm">
+                                <!-- Nav tabs -->
+                                <div class="tabs-wrapper">
+                                    <ul class="nav classic-tabs tabs-cyan" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link waves-light active" data-toggle="tab" href="#panel51" role="tab">Images</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link waves-light" data-toggle="tab" href="#curriculum" role="tab">Testimonials</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link waves-light" data-toggle="tab" href="#instructors" role="tab">Case Studies</a>
+                                        </li>
+                                        @*<li class="nav-item">
+                                                <a class="nav-link waves-light" data-toggle="tab" href="#review" role="tab">Review</a>
+                                            </li>*@
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Tab panels -->
+                            <div class="tab-content card">
+                                <!--Panel 1-->
+                                <div class="tab-pane fade in active show" id="panel51" role="tabpanel">
+                                    @if (Model.GenImageAlbumList.ImageAlbumList.Count() > 0)
+                                    {
+                                        foreach (var item in Model.GenImageAlbumList.ImageAlbumList)
+                                        {
+                                            if (item == Model.GenImageAlbumList.ImageAlbumList.First())
+                                            {
+                                                <div class="instructor-list">
+                                                    <div class="image">
+                                                        <img src="@item.ImageFilePathThumb" width="150" alt="@item.ImageAlbumTitle">
+                                                    </div>
+                                                    <div class="author-name">
+                                                        <div class="view-btn">
+                                                            <a href="#">View Images</a>
+                                                        </div>
+                                                        <a href="#"><h4>@item.ImageAlbumTitle</h4></a>
+                                                        <span><i class="fa fa-calendar"></i> @item.ProgramDate.ToString("dd MMM yyyy")</span>
+                                                        <p>
+                                                            @item.ImageAlbumDesc
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="instructor-list mt-15">
+                                                    <div class="image">
+                                                        <img src="@item.ImageFilePathThumb" width="150" alt="@item.ImageAlbumTitle">
+                                                    </div>
+                                                    <div class="author-name">
+                                                        <div class="view-btn">
+                                                            <a href="#">View Images</a>
+                                                        </div>
+                                                        <a href="#"><h4>@item.ImageAlbumTitle</h4></a>
+                                                        <span><i class="fa fa-calendar"></i> @item.ProgramDate.ToString("dd MMM yyyy")</span>
+                                                        <p>
+                                                            @item.ImageAlbumDesc
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                    }
+                                </div>
+                                <!--/.Panel 1-->
+                                <!--Panel 2-->
+                                <div class="tab-pane fade" id="curriculum" role="tabpanel">
+                                    @if (Model.GenTestimonialList.TestimonialList.Count() > 0)
+                                    {
+                                        foreach (var item in Model.GenTestimonialList.TestimonialList)
+                                        {
+                                            if (item == Model.GenTestimonialList.TestimonialList.First())
+                                            {
+                                                <div class="instructor-list mt-15">
+                                                    <div class="image">
+                                                        <img src="@item.ImagePath" style="border-radius:50%; width:70px; height:70px;" alt="@item.ComponentName">
+                                                    </div>
+                                                    <div class="author-name">
+                                                        @*<div class="view-btn">
+                                                                <a href="#">View Images</a>
+                                                            </div>*@
+                                                        <a href="#"><h4>@item.Name</h4></a>
+                                                        <span><i class="fa fa-map"></i> @item.Address</span>
+                                                        <span><i class="fa fa-calendar"></i> @item.TestimonialDate.ToString("dd MMM yyyy")</span>
+                                                        <p>
+                                                            @item.Remarks
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="instructor-list mt-15">
+                                                    <div class="image">
+                                                        <img src="@item.ImagePath" style="border-radius:50%; width:70px; height:70px;" alt="@item.ComponentName">
+                                                    </div>
+                                                    <div class="author-name">
+                                                        @*<div class="view-btn">
+                                                                <a href="#">View Images</a>
+                                                            </div>*@
+                                                        <a href="#"><h4>@item.Name</h4></a>
+                                                        <span><i class="fa fa-map"></i> @item.Address</span>
+                                                        <span><i class="fa fa-calendar"></i> @item.TestimonialDate.ToString("dd MMM yyyy")</span>
+                                                        <p>
+                                                            @item.Remarks
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                    }
+                                </div>
+                                <!--/.Panel 2-->
+                                <!--Panel 3-->
+                                <div class="tab-pane fade" id="instructors" role="tabpanel">
+                                    @if (Model.GenCaseStudyList.CaseStudyList.Count() > 0)
+                                    {
+                                        foreach (var item in Model.GenCaseStudyList.CaseStudyList)
+                                        {
+                                            if (item == Model.GenCaseStudyList.CaseStudyList.First())
+                                            {
+                                                <div class="instructor-list">
+                                                    <div class="image">
+                                                        <a href="#"><i class="fa fa-file-pdf fa-5x"></i></a>
+                                                    </div>
+                                                    <div class="author-name">
+                                                        @*<div class="view-btn">
+                                                                <a href="#">View Images</a>
+                                                            </div>*@
+                                                        <a href="#"><h4>@item.CaseStudyTitle</h4></a>
+                                                        <span><i class="fa fa-calendar"></i> @item.CaseStudyDate.ToString("dd MMM yyyy")</span>
+                                                        <p>
+                                                            @item.CaseStudyDesc
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="instructor-list">
+                                                    <div class="image">
+                                                        <i class="fa fa-file-pdf"></i>
+                                                    </div>
+                                                    <div class="author-name">
+                                                        @*<div class="view-btn">
+                                                                <a href="#">View Images</a>
+                                                            </div>*@
+                                                        <a href="#"><h4>@item.CaseStudyTitle</h4></a>
+                                                        <span><i class="fa fa-calendar"></i> @item.CaseStudyDate.ToString("dd MMM yyyy")</span>
+                                                        <p>
+                                                            @item.CaseStudyDesc
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                    }
+                                </div>
+                                <!--/.Panel 3-->
+                                <!--Panel 4-->
+                                @*<div class="tab-pane fade" id="review" role="tabpanel">
+                                        <h4 class="desc-title">Reviews</h4>
+
+                                        <p>Donec lorem leo, gravida ut cursus et, ultrices non tortor. Duis vel venenatis ligula. Etiam hendrerit at urna ac tempus. Integer sagittis luctus tellus, eu molestie magna volutpat quis. Praesent ullamcorper faucibus quam. Nam sed facilisis neque. Etiam dictum dolor et volutpat malesuada. Aliquam molestie felis in justo feugiat semper. In magna arcu, luctus a nisl et, mollis ultricies sem. Etiam cursus mi eget tellus ultrices fermentum. Vestibulum tempor erat ac eros egestas rutrum.</p>
+
+                                        <p>Aliquam pulvinar blandit eros, vel tempor tellus eleifend eget. Vestibulum ultricies egestas ante, eu consectetur leo pretium vel. Aliquam mollis dolor libero, ac sagittis velit dignissim at. Nulla a tellus eu enim porta posuere. Sed posuere at lectus ac fringilla.</p>
+                                        <h4 class="desc-title">Requirements</h4>
+                                        <ul class="requirements-list">
+                                            <li>Lorem ipsum dolor sit elit</li>
+                                            <li>Sed posuere at lectus ac fringilla</li>
+                                            <li>Aliquam mollis dolor libero</li>
+                                            <li>Sagittis velit dignissim</li>
+                                            <li>Aliquam mollis dolor libero</li>
+                                            <li>Lorem ipsum dolor sit elit</li>
+                                            <li>consectetur adipisicing elit</li>
+                                            <li>Lorem consectetur adipisicing elit</li>
+                                            <li>pariatur. Tempora, placeat ratione</li>
+                                            <li>Lorem consectetur adipisicing elit</li>
+                                            <li>Nihil odit magnam minima</li>
+                                            <li>Lorem ipsum dolor sit elit</li>
+                                        </ul>
+                                    </div>*@
+                                <!--/.Panel 4-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="sidebar-area">
+                    <h3 class="title">Categories</h3>
+                    <div id="accordion" class="rs-accordion-style1">
+                        @foreach (var item in Model.GenComponent)
+                        {
+                            <div class="card">
+                                <div class="card-header mb-1" id="@item.ComponentID">
+                                    <h3 class="acdn-title collapsed" data-toggle="collapse" data-target="#C_@item.ComponentID" aria-expanded="false" aria-controls="@item.ComponentID">
+                                        @item.ComponentName
+                                    </h3>
+                                </div>
+                                <div id="C_@item.ComponentID" class="collapse" aria-labelledby="@item.ComponentID" data-parent="#accordion">
+                                    @{Model.GenSubComponent = ObjSubComp.GetSubCompByCompID(item.ComponentID);}
+                                    @if (Model.SubComponent != null)
+                                    {
+                                        <div class="card-body">
+                                            <ol>
+                                                @foreach (var subitem in Model.GenSubComponent)
+                                                {
+                                                    <li>
+                                                        <a href="/home/GetContentBySubComp?CID=@subitem.ComponentID&SCID=@subitem.SubComponentID">@subitem.SubComponentName</a>
+                                                    </li>
+                                                }
+                                            </ol>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="card-body">
+                                            <ul class="text-decoration-none">
+                                                <li>
+                                                    No Sub Component Found.
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container pt-45">
+        <!-- Testimonial Start -->
+        <div class="related-courses rs-courses-3">
+            <div class="sec-title-2 mb-50">
+                <h2>Videos</h2>
+                <p>@Model.Component.ComponentName > <small>@Model.SubComponent.SubComponentName</small></p>
+            </div>
+            <div class="rs-carousel owl-carousel" data-loop="true" data-items="3" data-margin="30" data-autoplay="true" data-autoplay-timeout="5000" data-smart-speed="1500" data-nav="true" data-nav-speed="false" data-mobile-device="1" data-mobile-device-nav="true" data-ipad-device="2" data-ipad-device-nav="true" data-md-device="3" data-md-device-nav="true">
+                @if (Model.GenVideoAlbumList != null)
+                {
+                    foreach (var item in Model.GenVideoAlbumList.VideoAlbumList)
+                    {
+                        string[] vArr = item.VideoFilePathPublished.Split('?');
+                        string vLink = "https://www.youtube.com/embed/" + vArr[1].Substring(2);
+                        <div class="course-item">
+                            <div class="course-img">
+                                <iframe style="width: 100%;height: 225px; display:block" src="@vLink"></iframe>
+                                <a href="/Videos/VideoList?id=@item.VideoAlbumID"><span class="course-value"><i class="fa fa-video"></i></span></a>
+                            </div>
+                            <div class="course-body">
+                                <div class="course-desc">
+                                    <h4 class="course-title"><a href="courses-details.html">@item.VideoAlbumTitle</a></h4>
+                                    <p>
+                                        @item.VideoAlbumDesc
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="course-footer">
+                                <div class="course-seats">
+                                    <i class="fa fa-calendar-alt"></i> @item.ProgramDate.ToString("dd MMM yyyy")
+                                </div>
+                                <div class="course-button">
+                                    <a href="/Videos/VideoList?id=@item.VideoAlbumID">VIEW ALL</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="card-body">
+                        <ul class="text-decoration-none">
+                            <li>
+                                No Sub Component Found.
+                            </li>
+                        </ul>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Courses Details End -->

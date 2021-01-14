@@ -1,0 +1,375 @@
+﻿@model SikkimRepository.Entities.CustomModels.TestimonialManageModel
+@{
+    ViewBag.Title = "Edit Testimonial";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link href="~/Content/DateTimePicker/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<link href="~/Content/Cropper/cropper.min.css" rel="stylesheet" />
+<style>
+    /***************** Image Upload ****************/
+
+    .cropper-container {
+        top: 0 !important;
+    }
+
+    .cropper-preview {
+        margin-left: auto;
+        margin-right: auto;
+        height: 135px;
+        width: 288px;
+        overflow: hidden;
+        margin-top: 8px;
+        margin-bottom: 4px;
+        background-image: url("img/img-bg.png");
+        background-repeat: repeat;
+    }
+</style>
+
+<h1 class="h3 mb-2 text-gray-800">Testimonial</h1>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-info"><i class="fas fa-fw fa-hand-holding"></i> Testimonial <small class="text-secondary text-sm-left"><i class="fas fa-fw fa-caret-right"></i>Update</small></h6>
+    </div>
+    <div class="card-body pb-4">
+        @using (Html.BeginForm("Edit", "testimonial", new { @area = "Admin" }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Testimonial.TestimonialsID)
+            @Html.HiddenFor(m => m.Testimonial.ImagePath)
+            <div class="col-md-12 mb-3">
+                <i>Please note all fields marked as <strong class="text-danger">*</strong> are mandatory fields.</i>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Testimonial.ComponentID, new { @class = "control-label required" })
+                        @Html.DropDownListFor(m => m.Testimonial.ComponentID, new SelectList(Model.Components, "ComponentID", "ComponentName"), "-- Select Component --", new { @class = "form-control required", id = "ddcomp" })
+                        @Html.ValidationMessageFor(m => m.Testimonial.ComponentID)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Testimonial.SubComponentID, new { @class = "control-label required" })
+                        @Html.DropDownListFor(m => m.Testimonial.SubComponentID, new SelectList(string.Empty), "-- Select Sub Component --", new { @class = "form-control", id = "ddsubcomp" })
+                        @Html.ValidationMessageFor(m => m.Testimonial.SubComponentID)
+                    </div>
+                    <div class="form-group">
+                        @*@Html.LabelFor(m => m.Testimonial.SchoolID, new { @class = "control-label required" })
+                @Html.DropDownListFor(m => m.Testimonial.SchoolID, new SelectList(Model.SchoolList, "SchoolID", "SchoolName"), "-- Select School --", new { @class = "form-control", id = "school" })*@
+                        @Html.LabelFor(m => m.Testimonial.SchoolID, new { @class = "control-label required" })
+                        @if (User.IsInRole("DeptAdmin"))
+                        {
+                            @Html.DropDownListFor(m => m.Testimonial.SchoolID, new SelectList(Model.SchoolList, "SchoolID", "SchoolName", @ViewBag.SchoolID), "-- Select School --", new { @class = "form-control", id = "school" })
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(m => m.Testimonial.SchoolID, new SelectList(Model.SchoolList, "SchoolID", "SchoolName", @ViewBag.SchoolID), "-- Select School --", new { @class = "form-control", id = "school", @disabled = "disabled" })
+                        }
+                        @Html.ValidationMessageFor(m => m.Testimonial.SchoolID)
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group text-center">
+                        <div class="thumbnail">
+                            <div class="thumbnail">
+                                <div id="imgPhotoThumb">
+                                    <img src="@Model.Testimonial.ImagePath" class="img-fluid" style="width:20%;" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#photo-modal">
+                                Upload Photo
+                            </button>
+                        </div>
+                        @Html.TextAreaFor(model => model.PhotoStrs.PhotoNormal, new { @class = "invisible", @id = "DisplayPictureNormal" })
+                        @Html.TextAreaFor(model => model.PhotoStrs.PhotoThumb, new { @class = "invisible", @id = "DisplayPictureThumb" })
+                        @Html.ValidationMessageFor(m => m.PhotoStrs.PhotoNormal)
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Testimonial.TestimonialDate, new { @class = "control-label required" })
+                        @Html.TextBoxFor(m => m.Testimonial.TestimonialDate, new { @class = "form-control", @autocomplete = "off", @placeholder = "Select Date", @id = "dtpublish",@Value=Model.Testimonial.TestimonialDate.ToString("dd MMM yyyy") })
+                        @Html.ValidationMessageFor(m => m.Testimonial.TestimonialDate)
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Testimonial.Name, new { @class = "control-label required" })
+                        @Html.TextBoxFor(m => m.Testimonial.Name, new { @class = "form-control", @autocomplete = "off", @placeholder = "Enter Name" })
+                        @Html.ValidationMessageFor(m => m.Testimonial.Name)
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Testimonial.Address, new { @class = "control-label required" })
+                        @Html.TextAreaFor(m => m.Testimonial.Address, new { @class = "form-control", @autocomplete = "off", @placeholder = "Enter Address" })
+                        @Html.ValidationMessageFor(m => m.Testimonial.Address)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Testimonial.Remarks, new { @class = "control-label required" })
+                        @Html.TextAreaFor(m => m.Testimonial.Remarks, new { @class = "form-control", @autocomplete = "off", @placeholder = "Enter Remarks" })
+                        @Html.ValidationMessageFor(m => m.Testimonial.Remarks)
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-div action-style">
+                <a href="/admin/testimonial/index" class="btn btn-secondary btn-user">Back To List</a>
+                <button type="submit" class="btn btn-primary btn-user float-right">Save</button>
+                <div class="clearfix"></div>
+            </div>
+        }
+    </div>
+
+</div>
+
+@*error message*@
+<div id="ErrMsg" style="display:none;">
+    <input type="hidden" id="ErrMsgHiddenField" name="ErrMsg" value="@TempData["ErrMsg"]" />
+</div>
+
+@section scripts{
+    <script src="~/Content/Cropper/cropper.min.js"></script>
+    <script type="text/javascript">
+        function ShowFileMsg() {
+            if ($('#inputImage').val() == "") {
+                $("#ImageSpan").text("Upload photo...");
+                $('#getDataURL').css("pointer-events", "none");
+                $('#getDataURL').css("opacity:", ".3");
+            }
+            else {
+                $("#ImageSpan").text("");
+                $('#getDataURL').css("pointer-events", "");
+                $('#getDataURL').css("opacity", "1");
+            }
+
+            if ($('#dataURLInto').val() == "") {
+                $('#ModelDone').css("pointer-events", "none");
+                $('#ModelDone').css("opacity:", ".3");
+            }
+            else {
+                $('#ModelDone').css("pointer-events", "");
+                $('#ModelDone').css("opacity", "1");
+            }
+        }
+        $(function () {
+            (function () {
+
+                var $image = $('.img-container img');
+                var $download = $('#download');
+                var $dataX = $('#dataX');
+                var $dataY = $('#dataY');
+                var $dataHeight = $('#dataHeight');
+                var $dataWidth = $('#dataWidth');
+                var $dataRotate = $('#dataRotate');
+                var $dataScaleX = $('#dataScaleX');
+                var $dataScaleY = $('#dataScaleY');
+                var options = {
+                    aspectRatio: 4 / 3,
+                    preview: '.cropper-preview',
+                    crop: function (e) {
+                        $dataX.val(Math.round(e.x));
+                        $dataY.val(Math.round(e.y));
+                        $dataHeight.val(Math.round(e.height));
+                        $dataWidth.val(Math.round(e.width));
+                        $dataRotate.val(e.rotate);
+                        $dataScaleX.val(e.scaleX);
+                        $dataScaleY.val(e.scaleY);
+                    }
+                };
+
+                // Cropper
+                $image.on({
+                    'build.cropper': function (e) {
+                        console.log(e.type);
+                    },
+                    'built.cropper': function (e) {
+                        console.log(e.type);
+                    },
+                    'cropstart.cropper': function (e) {
+                        console.log(e.type, e.action);
+                    },
+                    'cropmove.cropper': function (e) {
+                        console.log(e.type, e.action);
+                    },
+                    'cropend.cropper': function (e) {
+                        console.log(e.type, e.action);
+                    },
+                    'crop.cropper': function (e) {
+                        console.log(e.type, e.x, e.y, e.width, e.height, e.rotate, e.scaleX, e.scaleY);
+                    },
+                    'zoom.cropper': function (e) {
+                        console.log(e.type, e.ratio);
+                    }
+                }).cropper(options);
+
+                // Import image
+                var $inputImage = $('#inputImage');
+                var URL = window.URL || window.webkitURL;
+                var blobURL;
+
+                if (URL) {
+                    $inputImage.change(function () {
+                        var files = this.files;
+                        var file;
+
+                        if (!$image.data('cropper')) {
+                            return;
+                        }
+
+                        if (files && files.length) {
+                            file = files[0];
+
+                            if (/^image\/\w+$/.test(file.type)) {
+                                blobURL = URL.createObjectURL(file);
+                                $image.one('built.cropper', function () {
+
+                                    // Revoke when load complete
+                                    URL.revokeObjectURL(blobURL);
+                                }).cropper('reset').cropper('replace', blobURL);
+                                $inputImage.val('');
+                            } else {
+                                window.alert('Please choose an image file.');
+                            }
+                        }
+                    });
+                } else {
+                    $inputImage.prop('disabled', true).parent().addClass('disabled');
+                }
+
+                $("#getDataURL").click(function () {
+                    var dataURLNormal = $image.cropper("getDataURL", {
+                        width: 960,
+                        height: 720
+                    }, "image/jpeg", 0.8);
+
+                    var dataURLThumb = $image.cropper("getDataURL", {
+                        width: 200,
+                        height: 150
+                    }, "image/jpeg", 0.8);
+
+                    $(DisplayPictureNormal).text(dataURLNormal);
+                    $(DisplayPictureThumb).text(dataURLThumb);
+                    $(imgPhotoThumb).html('<img class="img-fluid" style="width:20%;" src="' + dataURLThumb + '">');
+                    $('#photo-modal').modal('hide');
+                });
+            }());
+        });
+        function inputImage() {
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#dtpublish').datetimepicker({
+                format: "dd M yyyy",
+                weekStart: 1,
+                todayBtn: 1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                minView: 2,
+                forceParse: 0
+
+            })
+        });
+    </script>
+    <script type="text/javascript">
+        window.onload = function () {
+            if ($('#ddcomp').val()!="")
+        {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetSubComp", "testimonial", new { Area="Admin"})',
+                data: { id: $('#ddcomp').val() },
+                datatype: 'json',
+                success: function (data) {
+                    $("#ddsubcomp").empty();
+                    $("#ddsubcomp").append('<option value="">--- Select SubComponent ---</option>');
+                    $.each(data, function (i, item) {
+                        $("#ddsubcomp").append('<option value="' + item.SubComponentID + '">' + item.SubComponentName + '</option>');
+                    });
+
+                    $('#ddsubcomp').val('@Model.Testimonial.SubComponentID');
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve data.' + ex);
+                }
+            })
+        }
+    }
+        $('#ddcomp').on('change', function () {
+            var id = $('#ddcomp').val();
+        if (id == "") {
+            $("#ddsubcomp").empty();
+            $("#ddsubcomp").append('<option value="">--- Select SubComponent ---</option>');
+            $('#ddsubcomp').val("");
+        }
+        else {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetSubComp", "testimonial", new { Area="Admin"})',
+                data: { id: id },
+                datatype: 'json',
+                success: function (data) {
+                    $("#ddsubcomp").empty();
+                    $("#ddsubcomp").append('<option value="">--- Select SubComponent ---</option>');
+                    $.each(data, function (i, item) {
+                        $("#ddsubcomp").append('<option value="' + item.SubComponentID + '">' + item.SubComponentName + '</option>');
+                    });
+
+                    $('#ddsubcomp').val("");
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve data.' + ex);
+                }
+            })
+        }
+    })
+    </script>
+
+}
+<div class="modal fade" id="photo-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="avatar-form" action="#" enctype="multipart/form-data" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title">Upload Photo</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body clearfix">
+                    <div class="row no-horizantal-padding">
+                        <div class="col-md-8 clearfix">
+                            <div class="action-div clearfix">
+                                <div class="img-container">
+                                    <img src="#" class="img-rounded">
+                                </div>
+                            </div>
+                            <div class="action-div clearfix">
+                                <div class="col-md-12 col-sm-12" style="padding: 0">
+                                    <div class="btn btn-primary" for="inputImage" title="Upload image file">
+                                        <input id="inputImage" class="img-rounded" name="file" type="file" accept="image/*" data-toggle="tooltip" title="Upload image" onchange="ShowFileMsg()">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 clearfix">
+                            <div class="action-div text-center">
+                                <span class="page-title-main-text"><strong>Preview</strong></span>
+                                <div id="dataURLView" class="cropper-preview img-thumbnail">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action-div clearfix">
+                        <button class="btn btn-success float-right" id="getDataURL" type="button"><i class="fa fa-save"></i> &nbsp;&nbsp;Done</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

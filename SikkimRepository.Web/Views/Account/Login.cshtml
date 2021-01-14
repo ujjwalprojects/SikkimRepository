@@ -1,0 +1,113 @@
+﻿@using SikkimRepository.Web.Models
+@model LoginViewModel
+@using CaptchaMvc.HtmlHelpers
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<img src="~/Content/images/logo.png" class="mt-2"/>
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @*@Html.Hidden("Salt", (string)ViewBag.Salt)*@
+    @*@Html.Hidden("Salt", Session["LoginSalt"])*@
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+        <div class="col-xl-10 col-lg-12 col-md-9">
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                        <div class="col-lg-6">
+                            <div class="p-5" style="margin-top: -20px;">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                </div>
+                                <form class="user">
+                                    <div class="form-group">
+                                        @*<input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">*@
+                                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control  form-control-user", autocomplete = "off", @placeholder = "User Name" })
+                                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-user", @placeholder = "Password", @id = "Password" })
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="text-center" style="margin-top: -20px;">
+                                        @Html.Captcha(6)
+                                    </div>
+                                    <br />
+                                    @if (@ViewBag.ErrMsg != "")
+                                    {
+                                        <div class="form-group">
+                                            <div class="alert-danger text-center p-2">
+                                                <span>@ViewBag.ErrMsg</span>
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox small">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck">
+                                            <label class="custom-control-label" for="customCheck">Remember Me</label>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-success btn-user btn-block" id="LogIn">Log in</button>
+                                    <button class="invisible" type="submit" id="LogInBtn"></button>
+
+                                </form>
+                                @*<div class="text-center">
+                                            <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                    </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    <script src="~/Scripts/CryptoJS v3.1.2/rollups/aes.js"></script>
+    <script src="~/Scripts/CryptoJS v3.1.2/components/core-min.js"></script>
+    <script src="~/Scripts/CryptoJS v3.1.2/components/enc-utf16-min.js"></script>
+    <script type="text/javascript">
+        $('#LogIn').click(function () {
+            var txtpassword = $('#Password').val();
+            if (txtpassword != "") {
+                var key = CryptoJS.enc.Utf8.parse('8080808080808080');
+                var iv = CryptoJS.enc.Utf8.parse('8080808080808080');
+                var pass = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(txtpassword), key,
+                    {
+                        keySize: 128 / 8,
+                        iv: iv,
+                        mode: CryptoJS.mode.CBC,
+                        padding: CryptoJS.pad.Pkcs7
+                    });
+                //var salt = $('input[name="Salt"]').val();
+                //var key = CryptoJS.SHA256(txtpassword);
+                //var pass = CryptoJS.SHA256(key);
+                $('#Password').val(pass);
+                $('#LogInBtn').click();
+            }
+            else {
+                $('#LogInBtn').click();
+            }
+        });
+        $(window).keydown(function (event) {
+            if (event.keyCode == 13) {
+                event.preventDefault();
+                $('#LogIn').click();
+                return false;
+            }
+        });
+
+        $(document).ready(function () {
+            function disableBack() { window.history.forward() }
+
+            window.onload = disableBack();
+            window.onpageshow = function (evt) { if (evt.persisted) disableBack() }
+        });
+    </script>
+}

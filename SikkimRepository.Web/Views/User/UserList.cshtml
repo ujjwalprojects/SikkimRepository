@@ -1,0 +1,52 @@
+﻿@model SikkimRepository.Entities.CustomModels.RegisteredUserVM
+@{
+    ViewBag.Title = "UserList";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link href="~/Content/ns-pager-style.css" rel="stylesheet" />
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Manage Users</h1>
+    <a href="/account/register" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add New</a>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-info"><i class="fas fa-fw fa-hand-holding"></i>Manage Users<small class="text-secondary text-sm-left"><i class="fas fa-fw fa-caret-right"></i>User List</small></h6>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-7 float-left">
+                <form method="get" action="@Url.Action("userlist", "account", new { @Area = "" })" data-otf-ajax="true" data-search="true" data-otf-target="#DataGrid">
+                    <div class="input-group">
+                        <div class="input-group">
+                            <input type="text" name="searchTerm" class="form-control" id="inputsearch" placeholder="Search By Name/Email..." />
+                            <button class="btn btn-danger" type="submit" id="search"><i class="fa fa-fw fa-search"></i>  Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-5">
+                <a href="@Url.Action("userlist", "account", new { @Area = "" })" class="btn btn-success clear-result d-none" id="clear">
+                    <i class="fa fa-remove"></i> Clear Result
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    @Html.Partial("_pvUserList", Model)
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            $("#search").on("click", function (e) {
+                if ($("#inputsearch").val() != "") {
+                    $("#clear").removeClass("d-none");
+                }
+                else {
+                    $("#clear").addClass("d-none");
+                }
+            });
+        });
+    </script>
+}
+
+

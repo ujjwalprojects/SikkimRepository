@@ -1,0 +1,37 @@
+﻿@model SikkimRepository.Entities.CustomModels.GenViewListByDistrictCode
+<div class="rs-courses-list">
+    @if (Model.ImageAlbumListByDist.Count() > 0)
+    {
+        <div class="col-md-12">
+            <div class="row">
+                @foreach (var item in Model.ImageAlbumListByDist)
+                {
+                    //string[] vArr = item.VideoFilePathPublished.Split('?');
+                    //string vLink = "https://www.youtube.com/embed/" + vArr[1].Substring(2);
+                    <div class="col-lg-3 col-md-3 mb-30">
+                        <div class="cource-item">
+                            <div class="cource-img">
+                                <img src="@item.ImageFilePathThumb" alt="">
+                                <a href="@Url.Action("Photo","images",new { id=@item.ImageAlbumID})" class="course-value">View Album</a>
+                            </div>
+                            <div class="course-body">
+                                <h4 class="title"><a href="@Url.Action("Photo","images",new { id=@item.ImageAlbumID})">@item.ImageAlbumTitle</a></h4>
+                            </div>
+                            <div class="course-footer">
+                                <div class="courses-seats">
+                                    <i class="fa fa-calendar">@item.ProgramDate.ToString("dd MMM yyyy")</i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <h3>No record found..</h3>
+    }
+    <input type="hidden" name="totalRecords" value="@Model.TotalRecords" />
+</div>
+

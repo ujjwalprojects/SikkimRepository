@@ -1,0 +1,25 @@
+﻿@model IEnumerable<SikkimRepository.Entities.Models.utblBanner>
+@{
+    ViewBag.Title = "Banner List";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Banners</h1>
+    <a href="/admin/banner/add" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add New</a>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-info"><i class="fas fa-fw fa-hand-holding"></i> Banners <small class="text-secondary text-sm-left"><i class="fas fa-fw fa-caret-right"></i>List</small></h6>
+    </div>
+    <div class="clearfix"></div>
+    @Html.Partial("_pvBannerList", Model)
+</div>
+@*error message*@
+<div id="ErrMsg" style="display:none;">
+    <input type="hidden" id="ErrMsgHiddenField" name="ErrMsg" value="@TempData["ErrMsg"]" />
+</div>
+@section scripts{
+    @*<script src="~/Scripts/CustomAjax.js"></script>*@
+}
+
+

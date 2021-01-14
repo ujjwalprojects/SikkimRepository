@@ -1,0 +1,10 @@
+﻿
+@model SikkimRepository.Entities.CustomModels.ImageAlbumManageModel
+<div class="gallery">
+    @foreach (var item in Model.Imageslist)
+    {
+        <a href="@item.ImageFilePathNormal" data-lightbox="mygallery" data-title="@item.ImageTitle"><img src="@item.ImageFilePathThumb"/></a>
+    }
+</div>
+
+

@@ -1,0 +1,128 @@
+﻿@model SikkimRepository.Entities.CustomModels.CaseStudyManageModel
+
+<div id="DataGrid">
+    @if (Model.CaseStudyView.Count() > 0)
+    {
+        <div class="table-responsive p-2">
+            <table class="table table-striped table-condensed table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="vertical-align:middle">
+                            Title
+                        </th>
+                        <th class="text-center" style="vertical-align:middle">
+                            Component
+                        </th>
+                        <th class="text-center">
+                            Sub Component
+                        </th>
+                        <th class="text-center">
+                            Date
+                        </th>
+                        <th class="text-center">
+                            File
+                        </th>
+                        <th class="text-center" style="vertical-align:middle">
+                            Published
+                        </th>
+                        <th class="text-center" style="vertical-align:middle">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model.CaseStudyView)
+                    {
+
+                        <tr>
+                            @{ string[] fileArr = item.CaseStudyFilePath.Split('/');}
+                            <td class="text-center align-content-center">
+                                <small>@item.CaseStudyTitle</small>
+                            </td>
+                            <td class="text-center align-content-center">
+                                <small>@item.ComponentName</small>
+                            </td>
+                            <td class="text-center align-content-center">
+                                <small>@item.SubComponentName</small>
+                            </td>
+                            <td class="text-center align-content-center">
+                                <small>@item.CaseStudyDate.ToString("dd MMM yyyy")</small>
+                            </td>
+                            <td class="text-center align-content-center">
+                                <a href="@item.CaseStudyFilePath" target="_blank">@fileArr[fileArr.Length - 1]</a>
+                            </td>
+                            <td class="text-center">
+                                @if (User.IsInRole("DeptAdmin"))
+                                {
+                                    <form method="post" action="@Url.Action("PublishCaseStudy", "CaseStudy", new { Area = "Admin" })" data-otf-ajax="true" data-otf-target="#DataGrid">
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("ID", item.CaseStudyID)
+                                        @if (item.IsPublished == "Yes")
+                                        {
+                                            <a href="@Url.Action("PublishCaseStudy", "CaseStudy", new { Area = "Admin", ID = item.CaseStudyID, IsPublished = false })" class="btn btn-block btn-outline-danger btn-sm unpublish" data-toggle="tooltip" data-placement="bottom" title="UnPublish" data-record="@item.CaseStudyTitle">
+                                                Undo Publish
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("PublishCaseStudy", "CaseStudy", new { Area = "Admin", ID = item.CaseStudyID, IsPublished = true })" class="btn btn-block btn-outline-success btn-sm publish" data-toggle="tooltip" data-placement="bottom" title="Publish"data-record="@item.CaseStudyTitle">
+                                                Publish Now
+                                            </a>
+                                        }
+                                    </form>
+                                }
+                                else
+                                {
+                                    @item.IsPublished
+                                }
+
+                            </td>
+                            <td class="text-center" style="width: 80px;">
+                                <div style="float: right;">
+                                    <div style="float:left; padding-right: 5px;">
+                                        <a href="@Url.Action("Edit", "casestudy",new { @Area="Admin", id = item.CaseStudyID})" data-toggle="tooltip" data-placement="bottom" title="Edit">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    </div>
+                                    <div style="float:left; padding-right: 8px;">
+                                        <form action="@Url.Action("Delete", "casestudy", new { @Area="Admin"})" method="post" data-otf-ajax="true" data-otf-target="#DataGrid">
+                                            @Html.AntiForgeryToken()
+                                            @Html.Hidden("id", item.CaseStudyID)
+                                            <a href="@Url.Action("Delete", "casestudy", new { @Area = "Admin", id = item.CaseStudyID })" class="delete" data-toggle="tooltip" data-placement="bottom" title="Delete"data-record="@item.CaseStudyTitle">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="ns-grid-pager" data-otf-target="#DataGrid">
+                <div class="hidden-xs col-md-3 col-sm-3">
+                    @Model.PagingInfo.TotalItems Record(s)
+                </div>
+                <div class="text-black-50 visible-lg visible-md visible-sm visible-xs col-md-9 col-sm-9 ns-pagination" data-otf-target="#DataGrid" data-otf-actionlink="/admin/casestudy/index">
+                    @Html.PageLinks(Model.PagingInfo, x => Url.Action("index", "casestudy", new { @Area = "Admin", PageNo = x, PageSize = Model.PagingInfo.ItemsPerPage }))
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <h4 class="small font-weight-bold m-4">No record(s) found... </h4>
+    }
+</div>
+@*error message*@
+<div id="ErrMsg" style="display:none;">
+    <input type="hidden" id="ErrMsgHiddenField" name="ErrMsg" value="@TempData["ErrMsg"]" />
+</div>
+
+
+
+
+
+

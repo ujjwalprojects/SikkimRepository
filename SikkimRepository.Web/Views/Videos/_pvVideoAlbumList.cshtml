@@ -1,0 +1,84 @@
+﻿@model SikkimRepository.Entities.CustomModels.VideoAlbumManageModel
+@{
+    SikkimRepository.Entities.DataAccess.dalVideo ObjImg = new SikkimRepository.Entities.DataAccess.dalVideo();
+}
+
+<div class="rs-courses-list">
+    @if (Model.GenVideoAlbums.VideoAlbumList.Count() > 0)
+    {
+        foreach (var item in Model.GenVideoAlbums.VideoAlbumList)
+        {
+            if (item.VideoFilePathPublished != null)
+            {
+                string[] vArr = item.VideoFilePathPublished.Split('?');
+                string vLink = "https://www.youtube.com/embed/" + vArr[1].Substring(2);
+                <div class="row course-item">
+                    <div class="col-md-6">
+                        <div class="">
+                            <iframe style="width: 100%;height: 328px; display:block" src="@vLink"></iframe>
+                            @*<a class="Video-link" href="/Videos/VideoList?id=@item.VideoAlbumID" title="Computer Engineering">
+                                    <i class="fa fa-Videos"></i>
+                                </a>*@
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="course-header">
+                            <span class="course-category"><a href="#">@item.ComponentName <small>> @item.SubComponentName</small></a></span>
+                            <h3 class="course-title"><a href="courses-details.html">@item.VideoAlbumTitle</a></h3>
+                            <div class="course-date">
+                                <i class="fa fa-calendar"></i> <span> @item.ProgramDate.ToString("dd MMM yyyy")</span>
+                            </div>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-desc">
+                                <span class="more">
+                                    @item.VideoAlbumDesc
+                                </span>
+                            </div>
+                            <div class="course-button p-3">
+                                <a class="float-right" href="/Videos/VideoList?id=@item.VideoAlbumID" target="_blank">VIEW MORE VIDEOS</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                string[] fileArr = item.VideoFilePathDraft.Split('/');
+                string vlink = @item.VideoFilePathDraft;
+                <div class="row course-item">
+                    <div class="col-md-6">
+                        <div class="">
+                            <iframe style="width: 100%;height: 328px; display:block" src="@vlink"></iframe>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="course-header">
+                            <span class="course-category"><a href="#">@item.ComponentName <small>> @item.SubComponentName</small></a></span>
+                            <h3 class="course-title"><a href="courses-details.html">@item.VideoAlbumTitle</a></h3>
+                            <div class="course-date">
+                                <i class="fa fa-calendar"></i> <span> @item.ProgramDate.ToString("dd MMM yyyy")</span>
+                            </div>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-desc">
+                                <span class="more">
+                                    @item.VideoAlbumDesc
+                                </span>
+                            </div>
+                            <div class="course-button p-3">
+                                <a class="float-right" href="/Videos/VideoList?id=@item.VideoAlbumID" target="_blank">VIEW MORE VIDEOS</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+    }
+    else
+    {
+        <h3>No record found..</h3>
+    }
+    <input type="hidden" name="totalRecords" value="@Model.GenVideoAlbums.TotalRecords" />
+</div>

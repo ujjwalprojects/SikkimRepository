@@ -1,0 +1,126 @@
+﻿@model SikkimRepository.Entities.CustomModels.ImageAlbumManageModel
+<div id="DataGrid">
+    @if (Model.ImgAlbumList.Count() > 0)
+    {
+        <div class="table-responsive p-2">
+            <table class="table table-striped table-condensed table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="vertical-align:middle">
+                            Title
+                        </th>
+                        <th class="text-center" style="vertical-align:middle">
+                            Program Date
+                        </th>
+                        <th class="text-center" style="vertical-align:middle">
+                            Component
+                        </th>
+                        <th class="text-center" style="vertical-align:middle">
+                            Sub Component
+                        </th>
+                        <th class="text-center" style="vertical-align:middle">
+                            Published
+                        </th>
+                        <th class="text-center" style="vertical-align:middle">
+                            Manage Image
+                        </th>
+                        <th class="text-center" style="vertical-align:middle">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ImgAlbumList)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                @item.ImageAlbumTitle
+                            </td>
+                            <td class="text-center">
+                                @item.ProgramDate.ToString("dd MMM yyyy")
+                            </td>
+                            <td class="text-center">
+                                @item.ComponentName
+                            </td>
+                            <td class="text-center">
+                                @item.SubComponentName
+                            </td>
+                            <td class="text-center">
+                                @if (User.IsInRole("DeptAdmin"))
+                                {
+                                    <form method="post" action="@Url.Action("PublishImgAlbum", "ImageAlbum", new { Area = "Admin" })" data-otf-ajax="true" data-otf-target="#DataGrid">
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("AlbumID", item.ImageAlbumID)
+                                        @if (item.IsPublished == "Yes")
+                                        {
+                                            <a href="@Url.Action("PublishImgAlbum", "ImageAlbum", new { Area = "Admin", AlbumID = item.ImageAlbumID, IsPublished = false })" class="btn btn-block btn-outline-danger btn-sm unpublish" data-toggle="tooltip" data-placement="bottom" title="UnPublish" , data-record="@item.ImageAlbumTitle">
+                                                Undo Publish
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("PublishImgAlbum", "ImageAlbum", new { Area = "Admin", AlbumID = item.ImageAlbumID, IsPublished = true })" class="btn btn-block btn-outline-success btn-sm publish" data-toggle="tooltip" data-placement="bottom" title="Publish" data-record="@item.ImageAlbumTitle">
+                                                Publish Album
+                                            </a>
+                                        }
+                                    </form>
+                                }
+                                else
+                                {
+                                    @item.IsPublished
+                                }
+
+                            </td>
+                            <td class="text-center">
+
+                                <a href="@Url.Action("index", "image",new { @Area="Admin", AlbumID = item.ImageAlbumID})" data-toggle="tooltip" data-placement="bottom" title="album images">
+                                    <i class="fa fa-images"></i>
+                                </a>
+                            </td>
+                            <td class="text-center" style="width: 80px;">
+                                <div style="float: right;">
+                                    <div style="float:left; padding-right: 5px;">
+                                        <a href="@Url.Action("Edit", "imagealbum",new { @Area="Admin", id = item.ImageAlbumID})" data-toggle="tooltip" data-placement="bottom" title="Edit">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    </div>
+                                    <div style="float:left; padding-right: 8px;">
+                                        <form action="@Url.Action("Delete", "imagealbum", new { @Area="Admin"})" method="post" data-otf-ajax="true" data-otf-target="#DataGrid">
+                                            @Html.AntiForgeryToken()
+                                            @*@Html.Hidden("sessionXSRFToken", Session["XSRFToken"])*@
+                                            @Html.Hidden("id", item.ImageAlbumID)
+                                            <a href="@Url.Action("Delete", "imagealbum", new { @Area = "Admin", id = item.ImageAlbumID })" class="delete" data-toggle="tooltip" data-placement="bottom" title="Delete" data-record="@item.ImageAlbumTitle">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="ns-grid-pager" data-otf-target="#DataGrid">
+                <div class="hidden-xs col-md-3 col-sm-3">
+                    @Model.PagingInfo.TotalItems Record(s)
+                </div>
+                <div class="text-black-50 visible-lg visible-md visible-sm visible-xs col-md-9 col-sm-9 ns-pagination" data-otf-target="#DataGrid" data-otf-actionlink="/admin/imagealbum/index">
+                    @Html.PageLinks(Model.PagingInfo, x => Url.Action("index", "imagealbum", new { @Area = "Admin", PageNo = x, PageSize = Model.PagingInfo.ItemsPerPage }))
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <h4 class="small font-weight-bold m-4">No record(s) found... </h4>
+    }
+</div>
+@*error message*@
+<div id="ErrMsg" style="display:none;">
+    <input type="hidden" id="ErrMsgHiddenField" name="ErrMsg" value="@TempData["ErrMsg"]" />
+</div>
+
+
+

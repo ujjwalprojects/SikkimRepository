@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title || Sikkim Repository System</title>
+    <link rel="shortcut icon" href="~/Content/images/icon.jpg">
+    @Styles.Render("~/Content/homecss")
+    <link href="~/Content/fontawesome-free/css/all.css" rel="stylesheet" />
+    <link href="~/Content/gencss/animate.css" rel="stylesheet" />
+    <link href="~/Content/gencss/owl.carousel.css" rel="stylesheet" />
+    <link href="~/Content/gencss/slick.css" rel="stylesheet" />
+    <link href="~/Content/gencss/rsmenu-main.css" rel="stylesheet" />
+    <link href="~/Content/gencss/rsmenu-transitions.css" rel="stylesheet" />
+    <link href="~/Content/gencss/magnific-popup.css" rel="stylesheet" />
+    <link href="~/Content/font/flaticon.css" rel="stylesheet" />
+    <link href="~/Content/font/fonts2/flaticon.css" rel="stylesheet" />
+    @*<link href="~/Content/gencss/off-canvas.css" rel="stylesheet" />*@
+    <link href="~/Content/gencss/timeline.css" rel="stylesheet" />
+    <link href="~/Content/gencss/style.css" rel="stylesheet" />
+    <link href="~/Content/gencss/responsive.css" rel="stylesheet" />
+    @RenderSection("css", required: false)
+</head>
+<body class="inner-page">
+    <!--Full width header Start-->
+    <div class="full-width-header">
+        <!-- Toolbar Start -->
+        <div class="rs-toolbar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="rs-toolbar-left">
+                            <div class="welcome-message">
+                                <i class="fa fa-bank"></i><span>Welcome to Sikkim Repository System</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="rs-toolbar-right">
+                            <a href="/account/login" class="apply-btn">LOGIN</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Toolbar End -->
+        <!--Header Start-->
+        <header id="rs-header-2" class="rs-header-2">
+            <!-- Menu Start -->
+            <div class="menu-area menu-sticky">
+                <div class="container">
+                    <div class="row rs-vertical-middle">
+                        <div class="col-lg-3 col-md-12">
+                            <div class="logo-area">
+                                <a href="/home/index"><img src="~/content/images/logo-footer.png" alt="logo"></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-12">
+                            <div class="main-menu">
+                                <a class="rs-menu-toggle"><i class="fa fa-bars"></i>Menu</a>
+                                <nav class="rs-menu">
+                                    <ul class="nav-menu">
+                                        <!-- Home -->
+                                        <li class="menu-item-no-children">
+                                            <a href="/home/index" class="home">Home</a>
+                                        </li>
+                                        <!-- End Home -->
+                                        <!--About Menu Start-->
+                                        <li class="menu-item-no-children">
+                                            <a href="/testimonials/index">Testimonials</a>
+                                        </li>
+                                        <!--About Menu End-->
+                                        <!-- Drop Down current-menu-item current_page_item -->
+                                        <li class="menu-item-no-children">
+                                            <a href="/videos/index">Videos</a>
+                                        </li>
+                                        <!--End Icons -->
+                                        <!--Courses Menu Start-->
+                                        <li class="menu-item-no-children">
+                                            <a href="/images/index">Images</a>
+                                        </li>
+                                        <!--Courses Menu End-->
+                                        <!--Events Menu Start-->
+                                        <li class="menu-item-no-children">
+                                            <a href="/casestudies/index">Case Studies</a>
+                                        </li>
+                                        <!--Events Menu End-->
+                                        <!--blog Menu Start-->
+                                        <li class="menu-item-no-children">
+                                            <a href="/home/about">About Us</a>
+                                        </li>
+                                        <!--blog Menu End-->
+                                        <!--Contact Menu Start-->
+                                        <li> <a href="/home/Contact">Contact</a></li>
+                                        <!--Contact Menu End-->
+                                    </ul>
+                                </nav>
+                            </div>
+                            @*<div class="searce-box">
+                                <a class="rs-search" data-target=".search-modal" data-toggle="modal" href="#"><i class="fa fa-search"></i></a>
+                            </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Menu End -->
+        </header>
+        <!--Header End-->
+
+    </div>
+    <!--Full width header End-->
+    <!-- Breadcrumbs Start -->
+    <div class="rs-breadcrumbs bg7 breadcrumbs-overlay">
+        <div class="breadcrumbs-inner">
+            <div class="container">
+                @*<div class="row">
+                        <div class="col-md-12 text-center">
+                            <h1 class="page-title">check Out</h1>
+                            <ul>
+                                <li>
+                                    <a class="active" href="index.html">Home</a>
+                                </li>
+                                <li>check Out</li>
+                            </ul>
+                        </div>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumbs End -->
+    <div class="">
+        <div class="">
+            @RenderBody()
+        </div>
+    </div>
+    <!-- Footer Start -->
+    <footer id="rs-footer" class="bg3 rs-footer mt-0">
+        <!-- Footer Top -->
+        <div class="footer-top" style="padding-top: 40px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 col-md-12">
+                        <div class="about-widget">
+                            <img src="/Content/images/logo-footer.png" alt="Footer Logo">
+                            <p class="margin-remove">This portal is a rich repository of good practices that focuses on positive stories, developments and innovations initiated across all States and UTs of India that are driving performance improvements in the area of School Education. </p>
+                            @*<p class="margin-remove">These innovative practices are documented in the form of case studies, videos, testimonials and images. Content is easily searchable by State, Union Territory or by the Samagra Shiksha  components that they fall under.</p>*@
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <h5 class="footer-title">LINK</h5>
+                        <ul class="sitemap-widget">
+                            <li class="active"><a href="/home/index"><i class="fa fa-angle-right" aria-hidden="true"></i>Home</a></li>
+                            <li><a href="/testimonials/index"><i class="fa fa-angle-right" aria-hidden="true"></i>Testimonials</a></li>
+                            <li><a href="/videos/index"><i class="fa fa-angle-right" aria-hidden="true"></i>Videos</a></li>
+                            <li><a href="/images/index"><i class="fa fa-angle-right" aria-hidden="true"></i>Images</a></li>
+                            <li><a href="/casestudies/index"><i class="fa fa-angle-right" aria-hidden="true"></i>Case Studies</a></li>
+                            <li><a href="/home/index"><i class="fa fa-angle-right" aria-hidden="true"></i>About Us</a></li>
+                            <li><a href="/home/contact"><i class="fa fa-angle-right" aria-hidden="true"></i>Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4  col-md-12">
+                        <h5 class="footer-title">LEGAL</h5>
+                        <ul class="sitemap-widget">
+                            <li class="active"><a href="@Url.Action("LegalPages","Home",new { id="Privicy Policy"})"><i class="fa fa-angle-right" aria-hidden="true"></i>Privicy Policy</a></li>
+                            <li><a href="@Url.Action("LegalPages","Home",new { id="Terms and Conditions"})"><i class="fa fa-angle-right" aria-hidden="true"></i>Terms & Conditions</a></li>
+                            <li><a href="@Url.Action("LegalPages","Home",new { id="Copyright Policy"})"><i class="fa fa-angle-right" aria-hidden="true"></i>Copyright Policy</a></li>
+                            @*<li><a href="@Url.Action("LegalPages","Home",new { id="Terms & Conditions"})"><i class="fa fa-angle-right" aria-hidden="true"></i>Hyperlink Policy</a></li>*@
+                            <li><a href="@Url.Action("LegalPages","Home",new { id="Disclaimer"})"><i class="fa fa-angle-right" aria-hidden="true"></i>Disclaimer</a></li>
+                            <li><a href="@Url.Action("LegalPages","Home",new { id="Accessibility statement"})"><i class="fa fa-angle-right" aria-hidden="true"></i>Accessibility statement</a></li>
+                            @*<li><a href="@Url.Action("LegalPages","Home",new { id="Terms & Conditions"})"><i class="fa fa-angle-right" aria-hidden="true"></i>Sitemap</a></li>*@
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="copyright">
+                    <p>© 2020 <a href="#">Education Department, Govt. of Sikkim</a>. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer End -->
+    <!-- start scrollUp  -->
+    <div id="scrollUp">
+        <i class="fa fa-angle-up"></i>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/genjs/owl.carousel.min.js"></script>
+    <script src="~/Scripts/genjs/slick.min.js"></script>
+    <script src="~/Scripts/genjs/isotope.pkgd.min.js"></script>
+    <script src="~/Scripts/genjs/imagesloaded.pkgd.min.js"></script>
+    <script src="~/Scripts/genjs/wow.min.js"></script>
+    @*<script src="~/Scripts/genjs/waypoints.min.js"></script>*@
+    @*<script src="~/Scripts/genjs/jquery.counterup.min.js"></script>*@
+    <script src="~/Scripts/genjs/jquery.magnific-popup.min.js"></script>
+    <script src="~/Scripts/rsmenu-main.js"></script>
+    <script src="~/Scripts/genjs/plugins.js"></script>
+    <script src="~/Scripts/genjs/main.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,146 @@
+﻿@model SikkimRepository.Entities.CustomModels.GenViewListByDistrictCode
+@{
+    ViewBag.Title = "TestimonialListByDistrict";
+    Layout = "~/Views/Shared/_LayoutGenDetail.cshtml";
+}
+
+@section css{
+    <link href="~/Content/gen-pagination.css" rel="stylesheet" />
+}
+<div id="" class="rs-courses rs-courses-style7-new2">
+    <div class="container">
+        <div class="row sec-spacer-50">
+            <div class="col-lg-12 col-md-12 shadow-lg">
+                <div class="abt-title mb-3 mt-2 text-center">
+                    <h2 class="primary-color">@ViewBag.DistName</h2>
+                    <h2>Testimonials</h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 sidebar-area">
+                        <div class="search-box">
+                            <form method="get" action="/District/TestimonialListByDistrict" id="sForm">
+                                <div class="box-search">
+                                    <input class="form-control" placeholder="Search by Testimonial Name.." name="SearchTerm" id="SearchTerm" type="text">
+                                    <a href="/District/TestimonialListByDistrict?DistCode=@ViewBag.DistCode" class="btn btn-default invisible" id="clearsearch">View All</a>
+                                    <button class="btn btn-default" type="submit" id="search"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                </div>
+                                @*<input type="hidden" name="DistCode" id="DistCode" />*@
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div id="DataGrid">
+                        @Html.Partial("_pvTestimonialListByDistrict", Model)
+                    </div>
+                </div>
+                @if (@Model.TotalRecords > 10)
+                {
+                    <div class="col-md-12 text-center">
+                        <div id="pagination"></div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/gen-pagination.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var showChar = 200;  // How many characters are shown by default
+            var ellipsestext = "...";
+            var moretext = "Read more";
+            var lesstext = "Read less";
+            var setreadmore = function () {
+                $('.more').each(function () {
+                    var content = $(this).html();
+                    if (content.length > showChar) {
+                        var c = content.substr(0, showChar);
+                        var h = content.substr(showChar, content.length - showChar);
+                        var html = c + '<span class="moreellipses">' + ellipsestext + '&nbsp;</span><span class="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
+                        $(this).html(html);
+                    }
+                });
+            }
+            var setreadmorelink = function () {
+                $(document).on('click', '.morelink', function () {
+                    if ($(this).hasClass("less")) {
+                        $(this).removeClass("less");
+                        $(this).html(moretext);
+                    } else {
+                        $(this).addClass("less");
+                        $(this).html(lesstext);
+                    }
+                    $(this).parent().prev().toggle();
+                    $(this).prev().toggle();
+                    return false;
+                });
+            }
+            var initPaging = function (totalPage) {
+                $('#pagination').bootpag({
+                    total: totalPage,
+                    maxVisible: 5,
+                    leaps: true,
+                    firstLastUse: true,
+                    first: '<',
+                    last: '>',
+                    wrapClass: 'pagination',
+                    activeClass: 'page-active',
+                    disabledClass: 'disabled',
+                    nextClass: 'next',
+                    prevClass: 'prev',
+                    lastClass: 'last',
+                    firstClass: 'first'
+                }).on("page", function (event, num) {
+                    var options = {
+                        href: '/District/TestimonialListByDistrict',
+                        //data: $('#sForm').serialize(),
+                        data: { PageNo: num },
+                        type: 'get'
+                    };
+                    $.ajax(options).done(function (data) {
+                        $('#DataGrid').empty().append(data);
+                        setreadmore();
+                    }).fail(function () {
+                        alert('Error loading content..');
+                    });
+                    return false;
+                });
+            }
+
+            var totalRec = '@Model.TotalRecords';
+            if (totalRec != 0) {
+                var totalPage = Math.ceil(totalRec / 10);
+                initPaging(totalPage);
+            }
+            $('#search').on('click', function (e) {
+                e.preventDefault();
+                var $form = $('#sForm');
+                $('#search').addClass('invisible')
+                $('#clearsearch').removeClass('invisible');
+                var options = {
+                    href: $form.attr('action'),
+                    type: $form.attr("method")
+                    , data: $form.serialize()
+                };
+                $.ajax(options).done(function (data) {
+                    $('#DataGrid').empty().append(data);
+                    $('#pagination').empty();
+                    var totalRec = $('input[name="totalRecords"]').val();
+                    if (totalRec > 10) {
+                        var totalPage = Math.ceil(totalRec / 10);
+                        initPaging(totalPage);
+                    }
+                }).error(function () {
+                    alert('Error loading content..');
+                });
+                return false;
+            });
+            // Configure/customize these variables.
+            setreadmore();
+            setreadmorelink();
+        });
+    </script>
+}
+

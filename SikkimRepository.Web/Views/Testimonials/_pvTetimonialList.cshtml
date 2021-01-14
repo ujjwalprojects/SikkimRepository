@@ -1,0 +1,30 @@
+﻿@model SikkimRepository.Entities.CustomModels.TestimonialManageModel
+
+<div>
+    @if (Model.GenTestimonials.TestimonialList.Count() > 0)
+    {
+        foreach (var item in Model.GenTestimonials.TestimonialList)
+        {
+            <div class="rs-timeline-block">
+                <div class="rs-timeline-icon">
+                    <img src="@item.ImagePath" />
+                </div>
+                <div class="rs-timeline-content">
+                    @*<small class="font-weight-light primary-color">@item.ComponentName > <span class="gray-color">@item.SubComponentName</span></small>*@
+                    <span class="course-category"><a href="#">@item.ComponentName <small>> @item.SubComponentName</small></a></span>
+                    <h3 class="mb-0">@item.Name</h3>
+                    <p class="font-italic">@item.Address</p>
+                    <span class="more">@item.Remarks</span>
+                    @*<a href="#0" class="rs-read-more">Read more</a>*@
+                    <span class="rs-date">@item.TestimonialDate.ToString("dd MMM yyyy")</span>
+                </div>
+            </div>
+        }
+
+    }
+    else
+    {
+        <h3>No record found..</h3>
+    }
+    <input type="hidden" name="totalRecords" value="@Model.GenTestimonials.TotalRecords" />
+</div>

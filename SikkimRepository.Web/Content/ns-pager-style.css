@@ -1,0 +1,142 @@
+﻿#DataGrid, #DataGridBP {
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 15px;
+}
+
+.ns-grid-pager {
+    /*background: linear-gradient(#3d5d68, #A3AEC0 100%, #7888A1);*/
+    background-color: #3158ca;
+    color: #fff;
+    min-height: 45px;
+    line-height: 45px !important;
+    font-weight: bold;
+    vertical-align: middle;
+    border-bottom: 2px solid #b9b9b945 !important;
+    border-left: 2px solid #b9b9b945 !important;
+    border-right: 2px solid #b9b9b945 !important;
+}
+
+.ns-grid-pager-custom {
+    color: #555555;
+    min-height: 15px;
+    line-height: 15px !important;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.ns-page-link {
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 11px;
+    color: #555;
+    margin-right: 5px;
+    margin-top: 2px;
+}
+
+    .ns-page-link:hover {
+        text-decoration: none;
+        color: #46b8da;
+    }
+
+.page-number, .page-size {
+    color: #555;
+    width: 40px;
+    font-size: 12px;
+    font-weight: bold;
+    height: 22px;
+}
+
+.ns-page-link-disabled,
+.ns-page-link-disabled:hover,
+.ns-page-link-disabled:focus {
+    color: #b0b0b0;
+    cursor: not-allowed;
+    background-color: #ffffff;
+    border-color: #ededed;
+    padding: 5px;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 10px;
+    margin-right: 5px;
+    margin-top: 2px;
+}
+
+.ns-pagination {
+    float: right;
+    text-align: right;
+    padding-left: 2px;
+    padding-right: 5px;
+    margin-top:-45px;
+}
+
+
+/**************** Grid View Style ******************/
+.table {
+    margin-bottom: 0px !important;
+    border-width: 0;
+}
+
+.table-bordered th, .table-bordered td {
+    border: 2px solid #b9b9b945 !important;
+}
+
+.table th {
+    /*background: linear-gradient(#3d5d68, #A3AEC0 100%, #7888A1);*/
+    background-color: #F4F4F4;
+    color: #424040;
+    text-align: center;
+    font-weight: bold;
+    height: 40px;
+}
+
+@media screen and (max-width: 575px) {
+    /*.page-size {
+        display: none;
+    }*/
+    /*.page-size-label {
+        display: none;
+    }*/
+    .ns-pagination {
+        float: right;
+        text-align: right;
+        padding-left: 2px;
+        padding-right: 5px;
+        margin-top: 0px;
+    }
+}
+@media screen and (max-width: 680px) {
+    .page-size-label {
+        display: none;
+    }
+    .pager-label {
+        display: none;
+    }
+}
+    /*@media (max-width : 480px) {
+        .page-size {
+            display: none;
+        }
+
+        .page-size-label {
+            display: none;
+        }
+    }
+
+    @media (max-width : 320px) {
+        .page-size {
+            display: none;
+        }
+
+        .page-size-label {
+            display: none;
+        }
+    }*/
+    /************** End Grid View Style ****************/
+
+    .table > thead > tr > td.cusinfo, .table > tbody > tr > td.cusinfo, .table > tfoot > tr > td.cusinfo, .table > thead > tr > th.cusinfo, .table > tbody > tr > th.cusinfo, .table > tfoot > tr > th.cusinfo, .table > thead > tr.info > td, .table > tbody > tr.cusinfo > td, .table > tfoot > tr.cusinfo > td, .table > thead > tr.cusinfo > th, .table > tbody > tr.cusinfo > th, .table > tfoot > tr.cusinfo > th {
+        background-color: #a5b1cb;
+        color: #fff;
+    }

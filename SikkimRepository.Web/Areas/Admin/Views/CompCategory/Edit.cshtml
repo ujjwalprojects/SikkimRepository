@@ -1,0 +1,38 @@
+﻿@model SikkimRepository.Entities.Models.utblMstCompCategorie
+
+@{
+    ViewBag.Title = "Edit Category";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h1 class="h3 mb-2 text-gray-800">Category</h1>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-info"><i class="fas fa-fw fa-hand-holding"></i> Component Category <small class="text-secondary text-sm-left"><i class="fas fa-fw fa-caret-right"></i>Edit</small></h6>
+    </div>
+    <div class="card-body pb-4">
+        @using (Html.BeginForm("Edit", "CompCategory", new { @area = "Admin" }, FormMethod.Post))
+        {
+            @Html.HiddenFor(m => m.CompCategoryID)
+            @Html.AntiForgeryToken()
+            <div class="col-md-12 mb-3">
+                <i>Please note all fields marked as <strong class="text-danger">*</strong> are mandatory fields.</i>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.CompCategoryName, new { @class = "control-label required" })
+                    @Html.TextBoxFor(m => m.CompCategoryName, new { @class = "form-control", @autocomplete = "off", @placeholder = "Enter Component Category Name" })
+                    @Html.ValidationMessageFor(m => m.CompCategoryName)
+                </div>
+            </div>
+            <div class="action-div action-style">
+                <a href="/admin/CompCategory/categorylist" class="btn btn-secondary btn-user">Back To List</a>
+                <button type="submit" class="btn btn-primary btn-user float-right">Save</button>
+                <div class="clearfix"></div>
+            </div>
+        }
+    </div>
+</div>
+@*error message*@
+<div id="ErrMsg" style="display:none;">
+    <input type="hidden" id="ErrMsgHiddenField" name="ErrMsg" value="@TempData["ErrMsg"]" />
+</div>

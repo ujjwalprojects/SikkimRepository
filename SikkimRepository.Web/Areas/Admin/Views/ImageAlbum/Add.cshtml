@@ -1,0 +1,118 @@
+﻿@model SikkimRepository.Entities.CustomModels.ImageAlbumManageModel
+@{
+    ViewBag.Title = "Add Image Album";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link href="~/Content/DateTimePicker/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<h1 class="h3 mb-2 text-gray-800">Image Album</h1>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-info"><i class="fas fa-fw fa-hand-holding"></i> Image Album <small class="text-secondary text-sm-left"><i class="fas fa-fw fa-caret-right"></i>Add</small></h6>
+    </div>
+    <div class="card-body pb-4">
+        @using (Html.BeginForm("Add", "imagealbum", new { @area = "Admin" }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="col-md-12 mb-3">
+                <i>Please note all fields marked as <strong class="text-danger">*</strong> are mandatory fields.</i>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.ImageAlbum.ComponentID, new { @class = "control-label required" })
+                        @Html.DropDownListFor(m => m.ImageAlbum.ComponentID, new SelectList(Model.Components, "ComponentID", "ComponentName"), "-- Select Component --", new { @class = "form-control required", id = "ddcomp" })
+                        @Html.ValidationMessageFor(m => m.ImageAlbum.ComponentID)
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.ImageAlbum.SubComponentID, new { @class = "control-label required" })
+                        @Html.DropDownListFor(m => m.ImageAlbum.SubComponentID, new SelectList(string.Empty), "-- Select Sub Component --", new { @class = "form-control", id = "ddsubcomp" })
+                        @Html.ValidationMessageFor(m => m.ImageAlbum.SubComponentID)
+                    </div>
+                    <div class="form-group col-md-6">
+
+                        @Html.LabelFor(m => m.ImageAlbum.SchoolID, new { @class = "control-label required" })
+                        @if (User.IsInRole("DeptAdmin"))
+                        {
+                            @Html.DropDownListFor(m => m.ImageAlbum.SchoolID, new SelectList(Model.SchoolList, "SchoolID", "SchoolName"), "-- Select School --", new { @class = "form-control", id = "school"})
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(m => m.ImageAlbum.SchoolID, new SelectList(Model.SchoolList, "SchoolID", "SchoolName", @ViewBag.SchoolID), "-- Select School --", new { @class = "form-control", id = "school", @disabled = "disabled" })
+                        }
+                        @Html.ValidationMessageFor(m => m.ImageAlbum.SchoolID)
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(m => m.ImageAlbum.ProgramDate, new { @class = "control-label required" })
+                        @Html.TextBoxFor(m => m.ImageAlbum.ProgramDate, new { @class = "form-control", @autocomplete = "off", @placeholder = "Select Date", @id = "dtprog" })
+                        @Html.ValidationMessageFor(m => m.ImageAlbum.ProgramDate)
+                    </div>
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(m => m.ImageAlbum.ImageAlbumTitle, new { @class = "control-label required" })
+                        @Html.TextBoxFor(m => m.ImageAlbum.ImageAlbumTitle, new { @class = "form-control", @autocomplete = "off", @placeholder = "Enter Image Title" })
+                        @Html.ValidationMessageFor(m => m.ImageAlbum.ImageAlbumTitle)
+                    </div>
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(m => m.ImageAlbum.ImageAlbumDesc, new { @class = "control-label required" })
+                        @Html.TextAreaFor(m => m.ImageAlbum.ImageAlbumDesc, new { @class = "form-control", @autocomplete = "off", @placeholder = "Enter Image Description" })
+                        @Html.ValidationMessageFor(m => m.ImageAlbum.ImageAlbumDesc)
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-div action-style">
+                <a href="/admin/imagealbum/index" class="btn btn-secondary btn-user">Back To List</a>
+                <button type="submit" class="btn btn-primary btn-user float-right">Save</button>
+                <div class="clearfix"></div>
+            </div>
+        }
+    </div>
+</div>
+
+@*error message*@
+<div id="ErrMsg" style="display:none;">
+    <input type="hidden" id="ErrMsgHiddenField" name="ErrMsg" value="@TempData["ErrMsg"]" />
+</div>
+
+@section scripts{
+    <script src="~/Content/DateTimePicker/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#dtprog').datetimepicker({
+                format: "dd M yyyy",
+                weekStart: 1,
+                todayBtn: 1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                minView: 2,
+                forceParse: 0
+
+            })
+        });
+        $("#ddcomp").on('change', function () {
+
+            setSubComp();
+        });
+        function setSubComp(ComponentID) {
+            var id = $('#ddcomp').val();
+            $('#ddsubcomp').empty().append('<option value="">-- Select SubComponent --</option>')
+            if (id !== '') {
+                var options = {
+                    url: '/admin/imagealbum/GetSubComp',
+                    type: 'get',
+                    data: { id: id },
+                }
+                $.ajax(options).done(function (data) {
+                    $.each(data, function (key, item) {
+                        $('#ddsubcomp').append('<option value="' + item.SubComponentID + '">' + item.SubComponentName + '</option>');
+                        $('#ddsubcomp').val('');
+                    });
+                    //if (blockID) {
+                    //    $('#ddsubcomp').val('');
+                    //}
+                });
+            } else { $('#ddsubcomp').val(''); }
+        }
+    </script>
+}
+

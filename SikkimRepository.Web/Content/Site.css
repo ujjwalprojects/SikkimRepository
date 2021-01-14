@@ -1,0 +1,46 @@
+﻿/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+.required:after {
+    content: "*";
+    /*color: #D1413E;*/
+    color:#e74a3b; 
+    font-weight: 400;
+    font-size: 15px;
+    position: absolute;
+    margin-left: 3px;
+}
+.action-style{
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #eee;
+}
+/***Toast*/
+.toast-container {
+    position: absolute;
+    top: 100px;
+    /*width:250px;*/
+    right: 5px;
+    height: auto;
+}

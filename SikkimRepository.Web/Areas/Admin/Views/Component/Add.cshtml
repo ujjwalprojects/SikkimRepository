@@ -1,0 +1,45 @@
+﻿@model SikkimRepository.Entities.CustomModels.MstComponentVM
+@{
+    ViewBag.Title = "Add Component";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1 class="h3 mb-2 text-gray-800">Component</h1>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-info"><i class="fas fa-fw fa-hand-holding"></i> Component <small class="text-secondary text-sm-left"><i class="fas fa-fw fa-caret-right"></i>Add</small></h6>
+    </div>
+    <div class="card-body pb-4">
+        @using (Html.BeginForm("Add", "component", new { @area = "Admin" }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="col-md-12 mb-3">
+                <i>Please note all fields marked as <strong class="text-danger">*</strong> are mandatory fields.</i>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ComponentModel.CompCategoryID, new { @class = "control-label required" })
+                    @Html.DropDownListFor(m => m.ComponentModel.CompCategoryID, new SelectList(Model.CategoryDDList, "CompCategoryID", "CompCategoryName"), "-- Select Category --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ComponentModel.CompCategoryID)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ComponentModel.ComponentName, new { @class = "control-label required" })
+                    @Html.TextBoxFor(m => m.ComponentModel.ComponentName, new { @class = "form-control", @autocomplete = "off", @placeholder = "Enter Component Name" })
+                    @Html.ValidationMessageFor(m => m.ComponentModel.ComponentName)
+                </div>
+            </div>
+
+            <div class="action-div action-style">
+                <a href="/admin/Component/index" class="btn btn-secondary btn-user">Back To List</a>
+                <button type="submit" class="btn btn-primary btn-user float-right">Save</button>
+                <div class="clearfix"></div>
+            </div>
+        }
+    </div>
+</div>
+@*error message*@
+<div id="ErrMsg" style="display:none;">
+    <input type="hidden" id="ErrMsgHiddenField" name="ErrMsg" value="@TempData["ErrMsg"]" />
+</div>
+
+

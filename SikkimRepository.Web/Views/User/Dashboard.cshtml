@@ -1,0 +1,306 @@
+﻿@model SikkimRepository.Entities.CustomModels.DashModel
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<!-- Content Row -->
+<div class="row">
+    <div class="col-lg-6 mb-4">
+        <!-- Project Card Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                @if (User.IsInRole("DeptAdmin"))
+                {
+                    <h6 class="m-0 font-weight-bold text-primary">District Wise Images Uploads</h6>
+                }
+                else
+                {
+                    <h6 class="m-0 font-weight-bold text-primary">Images Uploads by @Model.SchoolDetails.SchoolName</h6>
+                }
+            </div>
+            <div class="card-body">
+                @{int Imgtotal = 0; }
+                @if (User.IsInRole("DeptAdmin"))
+                {
+                    foreach (var item in Model.DistCountImg)
+                    {
+                        if (item.Content.Contains("North"))
+                        {
+                            Imgtotal = item.DraftCount + item.PublishedCount;
+
+                            <h4 class="small font-weight-bold">North<span class="float-right">@item.PublishedCount/@Imgtotal  <span title="Published Files/Total Uploaded Files" class="fa fa-info-circle text-info"></span></span></h4>
+                            <div class="progress mb-4">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: @item.PublishedCount%" aria-valuenow="@item.PublishedCount" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                        if (item.Content.Contains("West"))
+                        {
+                            Imgtotal = item.DraftCount + item.PublishedCount;
+                            <h4 class="small font-weight-bold">West <span class="float-right">@item.PublishedCount/@Imgtotal  <span title="Published Files/Total Uploaded Files" class="fa fa-info-circle text-info"></span></span></h4>
+                            <div class="progress mb-4">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: @item.PublishedCount%" aria-valuenow="@item.PublishedCount" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                        if (item.Content.Contains("South"))
+                        {
+                            Imgtotal = item.DraftCount + item.PublishedCount;
+                            <h4 class="small font-weight-bold">South <span class="float-right">@item.PublishedCount/@Imgtotal <span title="Published Files/Total Uploaded Files" class="fa fa-info-circle text-info"></span></span></h4>
+                            <div class="progress mb-4">
+                                <div class="progress-bar" role="progressbar" style="width:  @item.PublishedCount%" aria-valuenow="@item.PublishedCount" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                        if (item.Content.Contains("East"))
+                        {
+                            Imgtotal = item.DraftCount + item.PublishedCount;
+                            <h4 class="small font-weight-bold">Ease <span class="float-right">@item.PublishedCount/@Imgtotal <span title="Published Files/Total Uploaded Files" class="fa fa-info-circle text-info"></span></span></h4>
+                            <div class="progress mb-4">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: @item.PublishedCount%" aria-valuenow="@item.PublishedCount" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var item in Model.Content)
+                    {
+                        if (item.Content.Contains("Images"))
+                        {
+                            Imgtotal = item.DraftCount + item.PublishedCount;
+
+                            <h4 class="small font-weight-bold">Images<span class="float-right">@item.PublishedCount/@Imgtotal <span title="Published Files/Total Uploaded Files" class="fa fa-info-circle text-info"></span></span></h4>
+                            <div class="progress mb-4">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: @item.PublishedCount%" aria-valuenow="@item.PublishedCount" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 mb-4">
+        <!-- Project Card Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                @if (User.IsInRole("DeptAdmin"))
+                {
+                    <h6 class="m-0 font-weight-bold text-primary">District Wise Videos Uploads</h6>
+                }
+                else
+                {
+                    <h6 class="m-0 font-weight-bold text-primary">Videos Uploads by @Model.SchoolDetails.SchoolName</h6>
+                }
+            </div>
+            <div class="card-body">
+                @{int vidtotal = 0; }
+                @if (User.IsInRole("DeptAdmin"))
+                {
+                    foreach (var item in Model.DistCountVid)
+                    {
+                        if (item.Content.Contains("North"))
+                        {
+                            vidtotal = item.DraftCount + item.PublishedCount;
+
+                            <h4 class="small font-weight-bold">North<span class="float-right">@item.PublishedCount/@vidtotal <span title="Published Files/Total Uploaded Files" class="fa fa-info-circle text-info"></span></span></h4>
+                            <div class="progress mb-4">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: @item.PublishedCount%" aria-valuenow="@item.PublishedCount" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                        if (item.Content.Contains("West"))
+                        {
+                            vidtotal = item.DraftCount + item.PublishedCount;
+                            <h4 class="small font-weight-bold">West <span class="float-right">@item.PublishedCount/@vidtotal <span title="Published Files/Total Uploaded Files" class="fa fa-info-circle text-info"></span></span></h4>
+                            <div class="progress mb-4">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: @item.PublishedCount%" aria-valuenow="@item.PublishedCount" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                        if (item.Content.Contains("South"))
+                        {
+                            vidtotal = item.DraftCount + item.PublishedCount;
+                            <h4 class="small font-weight-bold">South <span class="float-right">@item.PublishedCount/@vidtotal <span title="Published Files/Total Uploaded Files" class="fa fa-info-circle text-info"></span></span></h4>
+                            <div class="progress mb-4">
+                                <div class="progress-bar" role="progressbar" style="width:  @item.PublishedCount%" aria-valuenow="@item.PublishedCount" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                        if (item.Content.Contains("East"))
+                        {
+                            vidtotal = item.DraftCount + item.PublishedCount;
+                            <h4 class="small font-weight-bold">East <span class="float-right">@item.PublishedCount/@vidtotal <span title="Published Files/Total Uploaded Files" class="fa fa-info-circle text-info"></span></span></h4>
+                            <div class="progress mb-4">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: @item.PublishedCount%" aria-valuenow="@item.PublishedCount" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var item in Model.Content)
+                    {
+                        if (item.Content.Contains("Images"))
+                        {
+                            vidtotal = item.DraftCount + item.PublishedCount;
+
+                            <h4 class="small font-weight-bold">Images<span class="float-right">@item.PublishedCount/@vidtotal <span title="Published Files/Total Uploaded Files" class="fa fa-info-circle text-info"></span></span></h4>
+                            <div class="progress mb-4">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: @item.PublishedCount%" aria-valuenow="@item.PublishedCount" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </div>
+        <!-- Color System -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 mb-4">
+        <!-- Project Card Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                @if (User.IsInRole("DeptAdmin"))
+                {
+                    <h6 class="m-0 font-weight-bold text-primary">District Wise Testimonial Uploads</h6>
+                }
+                else
+                {
+                    <h6 class="m-0 font-weight-bold text-primary">Testimonial Uploads by @Model.SchoolDetails.SchoolName</h6>
+                }
+            </div>
+            <div class="card-body">
+                @{int Tstmtotal = 0; }
+                @if (User.IsInRole("DeptAdmin"))
+                {
+                    foreach (var item in Model.DistCountTstm)
+                    {
+                        if (item.Content.Contains("North"))
+                        {
+                            Tstmtotal = item.DraftCount + item.PublishedCount;
+
+                            <h4 class="small font-weight-bold">North<span class="float-right">@item.PublishedCount/@Tstmtotal <span title="Published Files/Total Uploaded Files" class="fa fa-info-circle text-info"></span></span></h4>
+                            <div class="progress mb-4">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: @item.PublishedCount%" aria-valuenow="@item.PublishedCount" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                        if (item.Content.Contains("West"))
+                        {
+                            Tstmtotal = item.DraftCount + item.PublishedCount;
+                            <h4 class="small font-weight-bold">West <span class="float-right">@item.PublishedCount/@Tstmtotal <span title="Published Files/Total Uploaded Files" class="fa fa-info-circle text-info"></span></span></h4>
+                            <div class="progress mb-4">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: @item.PublishedCount%" aria-valuenow="@item.PublishedCount" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                        if (item.Content.Contains("South"))
+                        {
+                            Tstmtotal = item.DraftCount + item.PublishedCount;
+                            <h4 class="small font-weight-bold">South <span class="float-right">@item.PublishedCount/@Tstmtotal <span title="Published Files/Total Uploaded Files" class="fa fa-info-circle text-info"></span></span></h4>
+                            <div class="progress mb-4">
+                                <div class="progress-bar" role="progressbar" style="width:  @item.PublishedCount%" aria-valuenow="@item.PublishedCount" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                        if (item.Content.Contains("East"))
+                        {
+                            Tstmtotal = item.DraftCount + item.PublishedCount;
+                            <h4 class="small font-weight-bold">Ease <span class="float-right">@item.PublishedCount/@Tstmtotal <span title="Published Files/Total Uploaded Files" class="fa fa-info-circle text-info"></span></span></h4>
+                            <div class="progress mb-4">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: @item.PublishedCount%" aria-valuenow="@item.PublishedCount" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                    }
+                }
+                else
+                {
+
+                    foreach (var item in Model.Content)
+                    {
+                        if (item.Content.Contains("Testimonials"))
+                        {
+                            Tstmtotal = item.DraftCount + item.PublishedCount;
+
+                            <h4 class="small font-weight-bold">Images<span class="float-right">@item.PublishedCount/@Tstmtotal <span title="Published Files/Total Uploaded Files" class="fa fa-info-circle text-info"></span></span></h4>
+                            <div class="progress mb-4">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: @item.PublishedCount%" aria-valuenow="@item.PublishedCount" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-6 mb-4">
+        <!-- Project Card Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                @if (User.IsInRole("DeptAdmin"))
+                {
+                    <h6 class="m-0 font-weight-bold text-primary">District Wise Case Studies Uploads</h6>
+                }
+                else
+                {
+                    <h6 class="m-0 font-weight-bold text-primary">Case Studies Uploads by @Model.SchoolDetails.SchoolName</h6>
+                }
+            </div>
+            <div class="card-body">
+                @{int CStotal = 0; }
+                @if (User.IsInRole("DeptAdmin"))
+                {
+                    foreach (var item in Model.DistCountCS)
+                    {
+                        if (item.Content.Contains("North"))
+                        {
+                            CStotal = item.DraftCount + item.PublishedCount;
+
+                            <h4 class="small font-weight-bold">North<span class="float-right">@item.PublishedCount/@CStotal <span title="Published Files/Total Uploaded Files" class="fa fa-info-circle text-info"></span></span></h4>
+                            <div class="progress mb-4">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: @item.PublishedCount%" aria-valuenow="@item.PublishedCount" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                        if (item.Content.Contains("West"))
+                        {
+                            CStotal = item.DraftCount + item.PublishedCount;
+                            <h4 class="small font-weight-bold">West <span class="float-right">@item.PublishedCount/@CStotal <span title="Published Files/Total Uploaded Files" class="fa fa-info-circle text-info"></span></span></h4>
+                            <div class="progress mb-4">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: @item.PublishedCount%" aria-valuenow="@item.PublishedCount" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                        if (item.Content.Contains("South"))
+                        {
+                            CStotal = item.DraftCount + item.PublishedCount;
+                            <h4 class="small font-weight-bold">South <span class="float-right">@item.PublishedCount/@CStotal <span title="Published Files/Total Uploaded Files" class="fa fa-info-circle text-info"></span></span></h4>
+                            <div class="progress mb-4">
+                                <div class="progress-bar" role="progressbar" style="width:  @item.PublishedCount%" aria-valuenow="@item.PublishedCount" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                        if (item.Content.Contains("East"))
+                        {
+                            CStotal = item.DraftCount + item.PublishedCount;
+                            <h4 class="small font-weight-bold">Ease <span class="float-right">@item.PublishedCount/@CStotal <span title="Published Files/Total Uploaded Files" class="fa fa-info-circle text-info"></span></span></h4>
+                            <div class="progress mb-4">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: @item.PublishedCount%" aria-valuenow="@item.PublishedCount" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var item in Model.Content)
+                    {
+                        if (item.Content.Contains("CaseStudies"))
+                        {
+                            CStotal = item.DraftCount + item.PublishedCount;
+
+                            <h4 class="small font-weight-bold">Images<span class="float-right">@item.PublishedCount/@CStotal <span title="Published Files/Total Uploaded Files" class="fa fa-info-circle text-info"></span></span></h4>
+                            <div class="progress mb-4">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: @item.PublishedCount%" aria-valuenow="@item.PublishedCount" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </div>
+        <!-- Color System -->
+    </div>
+</div>
+@*error message*@
+<div id="ErrMsg" style="display:none;">
+    <input type="hidden" id="ErrMsgHiddenField" name="ErrMsg" value="@TempData["ErrMsg"]" />
+</div>

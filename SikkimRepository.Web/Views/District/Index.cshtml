@@ -1,0 +1,395 @@
+﻿@model SikkimRepository.Entities.CustomModels.GenCustomModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutGenDetail.cshtml";
+}
+
+@section css{
+    <link href="~/Content/gen-pagination.css" rel="stylesheet" />
+}
+<!-- Images Start -->
+<div id="rs-courses" class="rs-courses rs-courses-style7-new2 sec-color sec-spacer-50">
+    <div class="container">
+        <div class="sec-title2 mb-50 ">
+            <span class="primary-color">@Model.District.DistName</span>
+            <h2>Images</h2>
+        </div>
+
+        <div class="row">
+            @if (Model.GenImgAlbumByDist.Count() > 0)
+            {
+                foreach (var item in Model.GenImgAlbumByDist)
+                {
+                    if (item == Model.GenImgAlbumByDist.First())
+                    {
+                        <div class="col-lg-6 md-pb-30">
+                            <div class="cource-item">
+                                <div class="cource-img">
+                                    <img src="@item.ImageFilePathThumb" alt="@item.ImageAlbumTitle">
+                                    @*<a class="image-link" href="courses-details.html" title="University Tour 2018">
+                                            <i class="fa fa-link"></i>
+                                        </a>*@
+                                    <a href="@Url.Action("Photo","images",new { id=@item.ImageAlbumID})" class="course-value">View Album</a>
+                                    @*<span class="course-value">View Album</span>*@
+                                    @*<span class="img-part"><img src="images/team/1.jpg" alt=""></span>*@
+                                </div>
+                                <div class="course-body">
+                                    @*<span><a href="#">Music</a></span>*@
+                                    <h4 class="title"><a href="@Url.Action("Photo","images",new { id=@item.ImageAlbumID})">@item.ImageAlbumTitle</a></h4>
+
+                                </div>
+                                <div class="course-footer">
+                                    <div class="courses-seats">
+                                        <i class="fa fa-calendar">@item.ProgramDate.ToString("dd MMM yyyy")</i>
+                                    </div>
+                                    <p class="desc">
+                                        @item.ImageAlbumDesc
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                <div class="col-lg-6">
+                    <div class="row">
+                        @foreach (var item in Model.GenImgAlbumByDist)
+                        {
+                            if (item != Model.GenImgAlbumByDist.First())
+                            {
+                                <div class="col-lg-6 mb-30">
+                                    <div class="cource-item">
+                                        <div class="cource-img">
+                                            <img src="@item.ImageFilePathThumb" alt="">
+                                            @*<a class="image-link" href="courses-details.html" title="University Tour 2018">
+                                                    <i class="fa fa-link"></i>
+                                                </a>*@
+                                            <a href="@Url.Action("Photo","images",new { id=@item.ImageAlbumID})" class="course-value">View Album</a>
+                                            @*<span class="img-part"><img src="images/team/2.jpg" alt=""></span>*@
+                                        </div>
+                                        <div class="course-body">
+                                            @*<span><a href="#">Music</a></span>*@
+                                            <h4 class="title"><a href="courses-details.html">@item.ImageAlbumTitle</a></h4>
+
+                                        </div>
+                                        <div class="course-footer">
+                                            <div class="courses-seats">
+                                                <i class="fa fa-calendar">@item.ProgramDate.ToString("dd MMM yyyy")</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <h3>No record found..</h3>
+            }
+        </div>
+
+    </div>
+    <div class="container mt-30">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="rs-calltoaction text-center">
+                    <div class="btn-part">
+                        <a class="readon2" href="@Url.Action("ImageListByDistrict","District",new {DistCode=Model.District.DistCode })" target="_blank">View All</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Images End -->
+<!-- Videos Start -->
+<div id="" class="rs-courses rs-courses-style7-new2  sec-spacer-50">
+    <div class="container">
+        <div class="sec-title2 mb-50 ">
+            <h2>Videos</h2>
+        </div>
+        <div class="row">
+            @if (Model.GenVidAlbumByDist.Count() > 0)
+            {
+                foreach (var item in Model.GenVidAlbumByDist)
+                {
+                    if (item == Model.GenVidAlbumByDist.First())
+                    {
+                        if (item.VideoFilePathPublished != null)
+                        {
+                            string[] vArr = item.VideoFilePathPublished.Split('?');
+                            string vLink = "https://www.youtube.com/embed/" + vArr[1].Substring(2);
+                            <div class="col-lg-6 md-pb-30">
+                                <div class="cource-item">
+                                    <div class="cource-img">
+                                        <iframe style="width: 100%;height: 328px; display:block" src="@vLink"></iframe>
+                                        @*<img src="@vLink" alt="@item.VideoAlbumTitle">*@
+                                        @*<a class="image-link" href="courses-details.html" title="University Tour 2018">
+                                                <i class="fa fa-link"></i>
+                                            </a>*@
+                                        <a href="@Url.Action("VideoList","Videos",new { id=@item.VideoAlbumID})" class="course-value">View Album</a>
+                                        @*<span class="course-value">View Album</span>*@
+                                        @*<span class="img-part"><img src="images/team/1.jpg" alt=""></span>*@
+                                    </div>
+                                    <div class="course-body">
+                                        @*<span><a href="#">Music</a></span>*@
+                                        <h4 class="title"><a href="courses-details.html">@item.VideoAlbumTitle</a></h4>
+
+                                    </div>
+                                    <div class="course-footer">
+                                        <div class="courses-seats">
+                                            <i class="fa fa-calendar">@item.ProgramDate.ToString("dd MMM yyyy")</i>
+                                        </div>
+                                        <p class="desc">
+                                            @item.VideoAlbumDesc
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            //string[] vArr = item.VideoFilePathPublished.Split('?');
+                            //string vLink = "https://www.youtube.com/embed/" + vArr[1].Substring(2);
+                            string[] fileArr = item.VideoFilePathDraft.Split('/');
+                            string vlink = @item.VideoFilePathDraft;
+                            <div class="col-lg-6 md-pb-30">
+                                <div class="cource-item">
+                                    <div class="cource-img">
+                                        <iframe style="width: 100%;height: 328px; display:block" src="@vlink"></iframe>
+                                        <a href="@Url.Action("VideoList","Videos",new { id=@item.VideoAlbumID})" class="course-value">View Album</a>
+                                    </div>
+                                    <div class="course-body">
+                                        <h4 class="title"><a href="courses-details.html">@item.VideoAlbumTitle</a></h4>
+                                    </div>
+                                    <div class="course-footer">
+                                        <div class="courses-seats">
+                                            <i class="fa fa-calendar">@item.ProgramDate.ToString("dd MMM yyyy")</i>
+                                        </div>
+                                        <p class="desc">
+                                            @item.VideoAlbumDesc
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    }
+                }
+                <div class="col-lg-6">
+                    <div class="row">
+                        @foreach (var item in Model.GenVidAlbumByDist)
+                        {
+                            if (item != Model.GenVidAlbumByDist.First())
+                            {
+                                if (item.VideoFilePathPublished != null)
+                                {
+                                    string[] vArr = item.VideoFilePathPublished.Split('?');
+                                    string vLink = "https://www.youtube.com/embed/" + vArr[1].Substring(2);
+                                    <div class="col-lg-6 mb-30">
+                                        <div class="cource-item">
+                                            <div class="cource-img">
+                                                <iframe style="width: 100%; display:block" src="@vLink"></iframe>
+                                                @*<img src="@item.ImageFilePathThumb" alt="">*@
+                                                @*<a class="image-link" href="courses-details.html" title="University Tour 2018">
+                                    <i class="fa fa-link"></i>
+                                </a>*@
+                                                <a href="@Url.Action("VideoList","Videos",new { id=@item.VideoAlbumID})" class="course-value">View Album</a>
+                                                @*<span class="course-value">Video Album</span>*@
+                                                @*<span class="img-part"><img src="images/team/2.jpg" alt=""></span>*@
+                                            </div>
+                                            <div class="course-body">
+                                                @*<span><a href="#">Music</a></span>*@
+                                                <h4 class="title"><a href="@Url.Action("VideoList","Videos",new { id=@item.VideoAlbumID})">@item.VideoAlbumTitle</a></h4>
+
+                                            </div>
+                                            <div class="course-footer">
+                                                <div class="courses-seats">
+                                                    <i class="fa fa-calendar">@item.ProgramDate.ToString("dd MMM yyyy")</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    string[] fileArr = item.VideoFilePathDraft.Split('/');
+                                    string vlink = @item.VideoFilePathDraft;
+                                    //string[] vArr = item.VideoFilePathPublished.Split('?');
+                                    //string vLink = "https://www.youtube.com/embed/" + vArr[1].Substring(2);
+                                    <div class="col-lg-6 mb-30">
+                                        <div class="cource-item">
+                                            <div class="cource-img">
+                                                <iframe style="width: 100%; display:block" src="@vlink"></iframe>
+                                                <a href="@Url.Action("VideoList","Videos",new { id=@item.VideoAlbumID})" class="course-value">View Album</a>
+                                            </div>
+                                            <div class="course-body">
+                                                <h4 class="title"><a href="@Url.Action("VideoList","Videos",new { id=@item.VideoAlbumID})">@item.VideoAlbumTitle</a></h4>
+
+                                            </div>
+                                            <div class="course-footer">
+                                                <div class="courses-seats">
+                                                    <i class="fa fa-calendar">@item.ProgramDate.ToString("dd MMM yyyy")</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <h3>No record found..</h3>
+            }
+        </div>
+    </div>
+    <div class="container mt-30">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="rs-calltoaction text-center">
+                    <div class="btn-part">
+                        <a class="readon2" href="@Url.Action("VideoListByDistrict","District",new {DistCode=Model.District.DistCode })" target="_blank">View All</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Videos End -->
+<!-- Latest News Start -->
+<div id="rs-latest-news-style7" class="rs-latest-news-style7 sec-color sec-spacer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 md-pb-50">
+                <h2 class="uppercase title pb-50 md-pb-30">Testimonials</h2>
+                <div class="rs-latest-list">
+                    <div class="latest-wrap">
+                        <div class="news-list-block">
+                            @if (Model.GenTestimonialByDist != null)
+                            {
+                                foreach (var item in Model.GenTestimonialByDist)
+                                {
+                                    <div class="event-item-new mb-50">
+                                        <div class="event-date">
+                                            <div class="vertical-align">
+                                                <img src="@item.ImagePath" alt="" style="border-radius: 10px;" width="115px;">
+                                            </div>
+                                        </div>
+                                        <div class="event-des">
+                                            <span>@item.Name</span>
+                                            <br />
+                                            <span><i class="fa fa-calendar"></i> @item.TestimonialDate.ToString("dd MMM yyyy")</span>
+                                            <p class="more">@item.Remarks</p>
+                                        </div>
+                                    </div>
+                                }
+                                if (Model.GenTestimonialByDist.Count() > 2)
+                                {
+                                    <div class="rs-calltoaction text-center">
+                                        <div class="btn-part">
+                                            <a class="readon2" href="@Url.Action("TestimonialListByDistrict","District",new {DistCode=Model.District.DistCode })" target="_blank">View All</a>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <h3>No record found..</h3>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="uppercase title pb-50 md-pb-30">Case Studies</h2>
+                <div class="rs-latest-list">
+                    @if (Model.GenCaseStudyByDist != null)
+                    {
+                        foreach (var item in Model.GenCaseStudyByDist)
+                        {
+                            <div class="event-item-new mb-50">
+                                <div class="event-date">
+                                    <div class="vertical-align">
+                                        <a href="@item.CaseStudyFilePath" target="_blank"><i class="fa fa-file-pdf fa-5x"></i></a>
+                                    </div>
+                                </div>
+                                <div class="event-des">
+                                    @*<h4 class="title"></h4>*@
+                                    <span>@item.CaseStudyTitle</span>
+                                    <br />
+                                    <span><i class="fa fa-calendar"></i> @item.CaseStudyDate.ToString("dd MMM yyyy")</span>
+                                    <p class="more">@item.CaseStudyDesc</p>
+                                </div>
+                            </div>
+                        }
+                        if (Model.GenCaseStudyByDist.Count() > 2)
+                        {
+                            <div class="rs-calltoaction text-center">
+                                <div class="btn-part">
+                                    <a class="readon2" href="@Url.Action("CaseStudyListByDistrict","District",new {DistCode=Model.District.DistCode })" target="_blank">View All</a>
+                                </div>
+                            </div>
+                        }
+
+                    }
+                    else
+                    {
+                        <h3>No record found..</h3>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Counter Up Section Start-->
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var showChar = 100;  // How many characters are shown by default
+            var ellipsestext = "...";
+            var moretext = "Read more";
+            var lesstext = "Read less";
+            var setreadmore = function () {
+                $('.more').each(function () {
+                    var content = $(this).html();
+
+                    if (content.length > showChar) {
+
+                        var c = content.substr(0, showChar);
+                        var h = content.substr(showChar, content.length - showChar);
+
+                        var html = c + '<span class="moreellipses">' + ellipsestext + '&nbsp;</span><span class="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
+
+                        $(this).html(html);
+                    }
+
+                });
+            }
+            var setreadmorelink = function () {
+                $(document).on('click', '.morelink', function () {
+                    if ($(this).hasClass("less")) {
+                        $(this).removeClass("less");
+                        $(this).html(moretext);
+                    } else {
+                        $(this).addClass("less");
+                        $(this).html(lesstext);
+                    }
+                    $(this).parent().prev().toggle();
+                    $(this).prev().toggle();
+                    return false;
+                });
+            }
+            // Configure/customize these variables.
+            setreadmore();
+            setreadmorelink();
+        });
+
+
+
+    </script>
+}

@@ -1,0 +1,37 @@
+﻿@model SikkimRepository.Entities.CustomModels.ImageAlbumManageModel
+@{
+    ViewBag.Title = "Photo";
+    Layout = "~/Views/Shared/_LayoutGenDetail.cshtml";
+}
+
+@section css{
+    <link href="~/Content/lightbox/css/lightbox.min.css" rel="stylesheet" />
+    <style>
+        .gallery {
+            margin: 10px 50px;
+        }
+
+            .gallery img {
+                width: 230px;
+                padding: 5px;
+            }
+
+                .gallery img:hover {
+                    transform: scale(1.1);
+                }
+    </style>
+}
+
+<div class="rs-gallery-4 rs-gallery sec-spacer-50">
+    <div class="container">
+        <div class="sec-title-2 mb-50 text-center">
+            <h2>@Model.ImageAlbum.ImageAlbumTitle</h2>
+            <p>@Model.ImageAlbum.ImageAlbumDesc</p>
+        </div>
+        @Html.Partial("_pvImageList", Model)
+    </div>
+</div>
+@section scripts{
+    <script src="~/Content/lightbox/js/lightbox.min.js"></script>
+}
+

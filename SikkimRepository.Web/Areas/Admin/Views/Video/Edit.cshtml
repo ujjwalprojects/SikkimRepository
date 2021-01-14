@@ -1,0 +1,168 @@
+﻿@model SikkimRepository.Entities.CustomModels.VideoSaveModel
+@{
+    ViewBag.Title = "Edit Video";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+@{
+    if (Model.Videos.VideoFilePathDraft != null)
+    {
+        string[] fileArr = Model.Videos.VideoFilePathDraft.Split('/');
+
+    }
+}
+
+<h1 class="h3 mb-2 text-gray-800">Videos</h1>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-info">
+            <i class="fas fa-fw fa-hand-holding"></i><a href="/admin/videoalbum/index" class="text-info text-decoration-none"> @Model.VideoAlbum.VideoAlbumTitle</a>
+            <small class="text-secondary text-sm-left"><i class="fas fa-fw fa-caret-right"></i>Video</small>
+            <small class="text-secondary text-sm-left"><i class="fas fa-fw fa-angle-right"></i>Edit</small>
+        </h6>
+    </div>
+    <div class="card-body pb-4">
+        <div>
+            @using (Html.BeginForm("edit", "video", new { Area = "Admin" }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("sessionXSRFToken", Session["XSRFToken"])
+                @Html.HiddenFor(m => m.Videos.VideoID)
+                @Html.HiddenFor(m => m.Videos.VideoAlbumID)
+                @Html.HiddenFor(m => m.Videos.VideoFilePathDraft)
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body shadow-sm">
+                                <div class="form-group text-center">
+                                    <label class="control-label"> Upload Physical Video File</label>
+                                    <input type="file" name="docFile" style="width:100%" />
+                                    @Html.ValidationMessage("FileErr")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body shadow-sm">
+                                <div class="form-group text-center">
+                                    <label class="control-label"> Current Video File</label>
+                                    @{string vlink = Model.Videos.VideoFilePathDraft; }
+                                    @Html.ValidationMessage("FileErr")
+                                    <iframe width="360" height="240" src="@vlink"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row  mt-2">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body shadow-sm">
+                                <label class="control-label">Video Link (Youtube) <i class="text-danger">*</i></label>
+                                <a data-toggle="modal" data-target="#myModal" title="Steps to Enter Youtube URL" style="margin-left:10px;"><i class="fa fa-info-circle"></i></a>
+                                @Html.TextBoxFor(m => m.Videos.VideoFilePathPublished, new { @class = "form-control input-sm", id = "vLink" })
+                                <div style="width:100%">
+                                    <a href="" class="pull-right" id="vVerify"><i>Verify</i></a>
+                                </div>
+                                @Html.ValidationMessageFor(m => m.Videos.VideoFilePathPublished, null, new { id = "vErrMsg" })
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body shadow-sm text-center">
+                                <iframe width="360" height="240" id="vFrame" class="invisible"
+                                        src=""></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Video Title <i class="text-danger">*</i></label>
+                            @Html.TextBoxFor(m => m.Videos.VideoTitle, new { @class = "form-control  form-control-user" })
+                            @Html.ValidationMessageFor(m => m.Videos.VideoTitle)
+                        </div>
+                        <div class="form-group">
+                            @Html.CheckBoxFor(m => m.Videos.IsAlbumCover) &nbsp;<label class="control-label"> Choose as album cover</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="action-div">
+                    <a href="/admin/video/index?AlbumID=@Model.Videos.VideoAlbumID" class="btn btn-secondary btn-user">Back To List</a>
+                    <button type="submit" class="btn btn-primary btn-user float-right">Save</button>
+                    <div class="clearfix"></div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@*error message*@
+<div id="ErrMsg" style="display:none;">
+    <input type="hidden" id="ErrMsgHiddenField" name="ErrMsg" value="@TempData["ErrMsg"]" />
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Steps to Enter Youtube Link</h4>
+            </div>
+            <div class="modal-body" style="font-family:Calibri">
+                <ol>
+                    <li>
+                        Open Youtube in your browser &amp; select the video you want to upload
+                    </li>
+                    <li>
+                        Copy the URL shown in the browser on opening the video as shown in the image
+                        <img src="~/Content/img/videolink.PNG" style="width:100%" />
+                    </li>
+                    <li>
+                        Paste the URL in the textbox below.
+                    </li>
+                </ol>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section Scripts{
+    <script>
+          $(document).ready(function () {
+            var curLink = '@Model.Videos.VideoFilePathPublished';
+            var curArr = curLink.split('?');
+            var curvideoID = curArr[1].substr(2, curArr[1].length);
+            var curembedLink = 'https://www.youtube.com/embed/' + curvideoID;
+            $('#vFrame').attr('src', curembedLink).removeClass('invisible');
+
+            $('#vVerify').on('click', function (e) {
+                e.preventDefault();
+                checkLink();
+            });
+        });
+        var checkLink = function () {
+            var link = $('#vLink').val();
+            if (link.trim() == '') {
+                $('#vErrMsg').empty().text('Enter link').removeClass('field-validation-valid').addClass('field-validation-error');
+            } else if (link.trim().indexOf("https://www.youtube.com/watch") == -1) {
+                $('#vErrMsg').empty().text('Invalid youtube link').removeClass('field-validation-valid').addClass('field-validation-error');
+            } else {
+                var linkArr = link.trim().split('?');
+                var videoID = linkArr[1].substr(2, linkArr[1].length);
+                var embedLink = 'https://www.youtube.com/embed/' + videoID;
+                $('#vFrame').attr('src', embedLink).removeClass('invisible');
+            }
+        }
+    </script>
+}
+
+

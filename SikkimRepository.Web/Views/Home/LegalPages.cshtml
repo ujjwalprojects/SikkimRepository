@@ -1,0 +1,107 @@
+﻿@model SikkimRepository.Entities.CustomModels.LegalPagesModel
+@{
+    ViewBag.Title = "LegalPages";
+    Layout = "~/Views/Shared/_LayoutGenDetail.cshtml";
+}
+<div id="rs-about-2" class="rs-about-2 sec-spacer-50">
+    <div class="container">
+        <div class="row rs-vertical-bottom">
+            @if (Model.LegalPageName == "Privicy Policy")
+            {
+                <div class="col-lg-12 col-md-12">
+                    <div class="sec-title mb-30">
+                        <h2>PRIVICY POLICY</h2>
+                        @*<p>Fusce sem dolor, interdum in efficitur at, faucibus.</p>*@
+                    </div>
+                    <p class="mobile-mb-50 text-justify">
+                        Sikkim Online Repository System does not automatically capture any specific personal information from you (like name, phone number or e-mail address), that allows us to identify you individually. If the system requests you to provide personal information, you will be informed for the particular purposes for which the information is gathered and adequate security measures will be taken to protect your personal information.
+                        <br /><br />
+                        We do not sell or share any personally identifiable information volunteered on the Sikkim Online Repository System site to any third party (public/private). Any information provided to this website will be protected from loss, misuse, unauthorized access or disclosure, alteration, or destruction.
+                        <br /><br />
+                        We gather certain information about the user, such as Internet protocol (IP) addresses, domain name, browser type, operating system, the date and time of the visit and the pages visited. We make no attempt to link these addresses with the identity of individuals visiting our site unless an attempt to damage the site has been detected.
+                    </p>
+                </div>
+            }
+            else if (Model.LegalPageName == "Terms and Conditions")
+            {
+                <div class="col-lg-12 col-md-12">
+                    <div class="sec-title mb-30">
+                        <h2>TERMS &amp; CONDITIONS</h2>
+                        @*<p>Fusce sem dolor, interdum in efficitur at, faucibus.</p>*@
+                    </div>
+                    <p class="mobile-mb-50 text-justify">
+                        The Online Repository System (website) has been designed, developed and maintained in coordination with the Education Department, Government of Sikkim.
+                        <br />
+                        Though all efforts have been made to ensure the accuracy of the content on this website, the same should not be construed as a statement of law or used for any legal purposes. In case of any ambiguity or doubts, users are advised to verify/check any information with the Education Department, Government of Sikkim and/or other source(s), to obtain appropriate professional advice.
+                        <br /><br />
+                        Under no circumstances will the State Government of Sikkim or Education Department, Government of Sikkim be liable for any expense, loss or damage including, without limitation, indirect or consequential loss or damage, or any expense, loss or damage whatsoever arising from use, or loss of use, of data, arising out of or in connection with the use of this website.
+                        <br /><br />
+                        Materials featured on this website could include hypertext links or pointers to information created and maintained by non-Government / private organizations. Education Department, Government of Sikkim is providing these links and pointers solely for your information and convenience. Education Department, Government of Sikkim, does not guarantee the availability of such linked pages at all times. Education Department, Government of Sikkim cannot authorize the use of copyrighted materials contained in linked websites. Users are advised to request such authorization from the owner of the linked website. Education Department, Government of Sikkim, does not guarantee that linked websites comply with Indian Government Web Guidelines.
+                        <br /><br />
+                        These terms and conditions shall be governed by and construed in accordance with the Indian Laws. Any dispute arising under these terms and conditions shall be subject to the jurisdiction of the courts of India.
+                        <br />
+                        Notwithstanding our efforts to ensure that the online repository system is secure, you acknowledge that all electronic data transfer are potentially susceptible to interception by others.
+                    </p>
+                </div>
+            }
+            else if (Model.LegalPageName == "Disclaimer")
+            {
+                <div class="col-lg-12 col-md-12">
+                    <div class="sec-title mb-30">
+                        <h2>DISCLAIMER</h2>
+                        @*<p>Fusce sem dolor, interdum in efficitur at, faucibus.</p>*@
+                    </div>
+                    <p class="mobile-mb-50 text-justify">
+                        The Online Repository System (website) of Education Department, Government of Sikkim is being maintained for information purposes only. Even though every effort is taken to provide accurate and up to date information, concerned officials posting contents on the website are advised to get in touch with the Education Department, Government of Sikkim whenever there is any doubt regarding the correctness of the information contained therein. In the event of any conflict between the contents on the website and the hard copy issued by Education Department, Government of Sikkim, the information in the hard copy should be relied upon and the matter shall be brought to the notice of the Education Department, Government of Sikkim.
+                    </p>
+                </div>
+            }
+            else if (Model.LegalPageName == "Accessibility statement")
+            {
+                <div class="col-lg-12 col-md-12">
+                    <div class="sec-title mb-30">
+                        <h2>ACCESSIBILITY STATEMENT</h2>
+                        @*<p>Fusce sem dolor, interdum in efficitur at, faucibus.</p>*@
+                    </div>
+                    <p class="mobile-mb-50 text-justify">
+                        We are committed to ensure that the Sikkim Online Repository System is accessible to all users irrespective of device in use, technology or ability. It has been built with an aim to provide maximum accessibility and usability to its users. As a result, this website can be viewed from a variety of devices, such as web-enabled mobile devices, wireless application protocol (WAP) phones, PDAs, and so on.
+                        <br />
+                        We also aim to be standards compliant and follow principles of usability and universal design, which should help all visitors of this website.
+                        <br />
+                        If you have any problem or suggestion regarding the accessibility of this website, please advise us to enable us to respond in a helpful manner.
+
+                    </p>
+                </div>
+            }
+            else if (Model.LegalPageName == "Copyright Policy")
+            {
+                <div class="col-lg-12 col-md-12">
+                    <div class="sec-title mb-30">
+                        <h2>COPYRIGHT POLICY</h2>
+                        @*<p>Fusce sem dolor, interdum in efficitur at, faucibus.</p>*@
+                    </div>
+                    <p class="mobile-mb-50 text-justify">
+                        Any kinds of material/contents featured on this website may be reproduced free of charge in any format or media without requiring specific permission. This is subject to the material being reproduced accurately and not being used in a derogatory manner or in a misleading context. Where the material is being published or issued to others, the source must be prominently acknowledged. However, the permission to reproduce this material does not extend to any material on this site, which is explicitly identified as being the copyright of third party. Authorization to reproduce such material must be obtained from the copyright holders concerned.
+                    </p>
+                </div>
+            }
+            else
+            {
+                <div class="col-lg-12 col-md-12">
+                    <div class="sec-title mb-30">
+                        <h2>PRIVICY POLICY</h2>
+                        @*<p>Fusce sem dolor, interdum in efficitur at, faucibus.</p>*@
+                    </div>
+                    <p class="mobile-mb-50 text-justify">
+                        Sikkim Online Repository System does not automatically capture any specific personal information from you (like name, phone number or e-mail address), that allows us to identify you individually. If the system requests you to provide personal information, you will be informed for the particular purposes for which the information is gathered and adequate security measures will be taken to protect your personal information.
+                        <br /><br />
+                        We do not sell or share any personally identifiable information volunteered on the Sikkim Online Repository System site to any third party (public/private). Any information provided to this website will be protected from loss, misuse, unauthorized access or disclosure, alteration, or destruction.
+                        <br /><br />
+                        We gather certain information about the user, such as Internet protocol (IP) addresses, domain name, browser type, operating system, the date and time of the visit and the pages visited. We make no attempt to link these addresses with the identity of individuals visiting our site unless an attempt to damage the site has been detected.
+                    </p>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

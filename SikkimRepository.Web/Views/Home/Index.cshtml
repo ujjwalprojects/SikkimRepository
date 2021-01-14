@@ -1,0 +1,581 @@
+﻿@model SikkimRepository.Entities.CustomModels.GenCustomModel
+@{
+    ViewBag.Title = "Home Page";
+}
+@{
+    List<SikkimRepository.Entities.Models.utblBanner> banners = new List<SikkimRepository.Entities.Models.utblBanner>();
+    int bannercount = 0;
+    if (ViewBag.Banner != null)
+    {
+        banners = (List<SikkimRepository.Entities.Models.utblBanner>)ViewBag.Banner;
+        bannercount = banners.Count();
+    }
+}
+@*@{
+        SikkimRepository.Entities.DataAccess.dalSubComponent ObjSubComp = new SikkimRepository.Entities.DataAccess.dalSubComponent();
+    }*@
+<style>
+    svg {
+        height: 26vw;
+    }
+
+    path {
+        fill: #97c8f0;
+        transition: .6s fill;
+        stroke-width: 1;
+    }
+
+    g {
+        stroke: #e2e2e2;
+    }
+
+    path:hover {
+        fill: #b9daf6;
+    }
+
+    .text-ellipsis {
+        display: block;
+        text-overflow: ellipsis;
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .text-ellipsis-width {
+        width: 80%;
+    }
+
+    .card-body > ol > li a {
+        color: #000000;
+    }
+
+    .product-img a {
+        color: #f9f9f9;
+    }
+
+    .mmd-card {
+        background: #f9f9f9;
+    }
+
+    .rs-events:nth-child(odd) {
+        background: #f9f9f9;
+    }
+</style>
+<!-- Slider banner Start -->
+<div id="rs-slider" class="slider-section4 slider-overlay-2">
+    <div id="home-slider">
+        @for (int i = 0; i < bannercount; i++)
+        {
+            if (i == 0)
+            {
+                <!-- Item 1 -->
+                <div class="item active">
+                    <img src="@banners.ElementAt(i).BannerPath" />
+                    <div class="slide-content">
+                        <div class="display-table">
+                            <div class="display-table-cell">
+                                <div class="container">
+                                    <h1 class="slider-title" data-animation-in="fadeInLeft" data-animation-out="animate-out">@banners.ElementAt(i).BannerTitle</h1>
+                                    <p data-animation-in="fadeInUp" data-animation-out="animate-out" class="slider-desc">@banners.ElementAt(i).BannerDescription</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <!-- Item 2 -->
+                <div class="item">
+                    <img src="@banners.ElementAt(i).BannerPath" />
+                    <div class="slide-content">
+                        <div class="display-table">
+                            <div class="display-table-cell">
+                                <div class="container">
+                                    <h1 class="slider-title" data-animation-in="fadeInUp" data-animation-out="animate-out">@banners.ElementAt(i).BannerTitle</h1>
+                                    <p data-animation-in="fadeInUp" data-animation-out="animate-out" class="slider-desc">@banners.ElementAt(i).BannerDescription</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        <!-- Item 3 -->
+        <!--<div class="item">
+                <img src="~/Content/images/slider/home4/slide3.jpg" />
+                <div class="slide-content">
+                    <div class="display-table">
+                        <div class="display-table-cell">
+                            <div class="container">
+                                <h1 class="slider-title" data-animation-in="fadeInUp" data-animation-out="animate-out">ARE YOU READY TO APPLY?</h1>
+                                <p data-animation-in="fadeInUp" data-animation-out="animate-out" class="slider-desc">Fusce sem dolor, interdum in efficitur at, faucibus nec lorem.Sed nec molestie justo.<br> Nunc quis sapien in arcu pharetra volutpat.Morbi nec vulputate dolor.</p>
+                                <a href="#" class="sl-readmore-btn mr-30" data-animation-in="fadeInUp" data-animation-out="animate-out">READ MORE</a>
+                                <a href="#" class="sl-get-started-btn" data-animation-in="fadeInUp" data-animation-out="animate-out">GET STARTED NOW</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+    </div>
+</div>
+<!-- Slider Area End -->
+<!-- Services Start -->
+@*<div class="rs-services rs-services-style1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="services-item rs-animation-hover">
+                        <div class="services-icon">
+                            <i class="fa fa-comment rs-animation-scale-up"></i>
+                        </div>
+                        <div class="services-desc">
+                            <h4 class="services-title">Testimonials</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="services-item rs-animation-hover">
+                        <div class="services-icon">
+                            <i class="fa fa-video rs-animation-scale-up"></i>
+                        </div>
+                        <div class="services-desc">
+                            <h4 class="services-title">Videos</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="services-item rs-animation-hover">
+                        <div class="services-icon">
+                            <i class="fa fa-image rs-animation-scale-up"></i>
+                        </div>
+                        <div class="services-desc">
+                            <h4 class="services-title">Images</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="services-item rs-animation-hover">
+                        <div class="services-icon">
+                            <i class="fa fa-file-alt rs-animation-scale-up"></i>
+                        </div>
+                        <div class="services-desc">
+                            <h4 class="services-title">Case studies</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+<!-- Services End -->
+<!-- About Us Start -->
+<div id="rs-about-2" class="rs-about-2 sec-spacer-50">
+    <div class="container">
+        <div class="row rs-vertical-bottom">
+            <div class="col-lg-7 col-md-12">
+                <div class="sec-title mb-30">
+                    <h2>ABOUT US</h2>
+                    @*<p>Fusce sem dolor, interdum in efficitur at, faucibus.</p>*@
+                </div>
+                <p class="mobile-mb-50 text-justify">
+                    Sikkim Online Repository acts as a storage location for the variety of innovative & inspirational programmes, good practices & developments initiated for the enhancement of School
+                    Education across the State of Sikkim. All these enrichment are showcased in this portal through Images, Videos, Testimonials and Case Studies.
+                    <br />
+                    The portal is user-friendly and has easy navigational features for all its users. All the contents in the portal falls under their specific components which help users to search without any difficulty and saves their time.
+                </p>
+                @*<div class="row about-signature">
+                        <div class="col-md-6">
+                            <h4>Rashid Mahabub Shojib</h4>
+                            <span>Vice Chancellor (vc)</span>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <img src="/Content/images/about/signature.png" alt="signature">
+                        </div>
+                    </div>*@
+            </div>
+            <div class="col-lg-5 col-md-12">
+                <div class="about-img rs-image-effect-shine">
+                    @*<img src="/Content/images/about/about2.jpg" alt="img02">*@
+                    <img src="~/Content/images/about/about2.jpg" alt="about2" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About Us End -->
+<!-- Map Start -->
+<div id="rs-courses" class="rs-courses sec-color sec-spacer-50">
+    <div class="container">
+        <div class="row rs-vertical-middle">
+            <div class="col-lg-8 col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="latest-news-slider">
+                            <div>
+                                <div class="news-normal-block">
+                                    <div class="news-img">
+                                        <svg version="1.1" viewBox="0 0 194.09 230.16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <g transform="translate(-6.1416 -28.175)" stroke-width=".031052">
+                                                <a xlink:href="/district/index?DistCode=1101" target="_blank">
+                                                    <path d="m133.85 28.451c-0.0925 0.12509-0.15417 1.0007-0.12334 1.9389 0.0308 1.9076-0.49335 4.0966-1.0792 4.597-0.55502 0.46908-4.5943 1.376-7.1536 1.5949l-2.1584 0.18763-0.70919 1.5636c-1.0175 2.1265-2.8368 7.2864-2.8368 7.9743 0 0.75053-1.295 1.7825-2.7751 2.2203-0.95586 0.31272-1.3259 0.25018-2.6518-0.34399-3.731-1.6887-4.9643-2.3141-5.7352-2.877-0.43167-0.31272-1.1409-0.5629-1.5417-0.5629-0.83253 0-2.7134 1.7825-2.7134 2.533 0 0.75053-1.6342 3.1585-3.0218 4.4093-0.8942 0.81307-1.5725 1.1883-2.2201 1.1883-0.52418 0-1.5417 0.31272-2.2509 0.68798-0.70919 0.37526-2.0967 0.7818-3.1143 0.90688-1.9426 0.25018-2.3434 0.5629-2.3434 1.9701 0 1.1883-1.0792 2.9083-2.1584 3.4712-1.0792 0.5629-5.396 0.62544-8.7261 0.12509-1.9426-0.28145-2.4359-0.28145-3.2376 0.15636-0.52418 0.28145-1.5725 0.50035-2.3126 0.50035-0.95586 0-1.6651 0.2189-2.4051 0.7818-2.2817 1.6887-2.9293 2.0327-3.8851 2.0327-1.3567 0-2.4667 0.46908-3.7001 1.5636-0.95586 0.84434-1.2334 0.93816-3.2068 0.93816-2.0659 0-2.2509 0.06255-3.0218 0.96943-1.6342 1.9701-2.5901 2.7832-3.2376 2.7832-0.8942 0-3.2376-1.5636-4.9335-3.3148-1.2334-1.2509-1.4492-1.3447-2.5284-1.1571-1.5725 0.25018-1.8192 0.46908-2.2817 2.1265-0.43168 1.5636-1.2025 2.4392-2.2201 2.4079-1.295 0-4.9952-1.3134-8.1711-2.9396-1.7884-0.90688-3.3301-1.5011-3.6076-1.4072-0.30834 0.12509-0.49335 0.59417-0.49335 1.2509 0 1.3134-1.4492 2.9083-2.8984 3.221-0.52418 0.09381-1.2025 0.40653-1.48 0.68798-0.52418 0.43781-0.49335 0.53162 0.49335 1.7512 0.55502 0.71926 1.295 1.845 1.6651 2.533 0.33918 0.68798 1.0484 1.845 1.5417 2.533 0.89419 1.2509 1.0175 1.3134 3.1143 1.5323 1.1717 0.12509 2.3742 0.37526 2.6209 0.5629 0.27751 0.2189 0.67835 1.0007 0.89419 1.7825l0.40085 1.4072 2.0659 0.18763c2.0659 0.18763 3.2993 0.81307 3.2993 1.72 0 0.2189 0.49335 0.7818 1.0792 1.2509l1.11 0.84434-0.21584 1.9076c-0.30834 2.7519-0.55502 3.221-2.2817 4.3155-1.48 0.93816-1.8809 1.5636-1.2642 1.9701 0.15417 0.09382 0.86336 1.032 1.5417 2.0639 1.7267 2.5956 1.6651 3.3148-0.33918 5.4726-1.48 1.5949-1.6034 1.8138-1.6959 3.5025-0.21584 3.9715-2.1276 6.7547-5.1493 7.5365-1.6034 0.40653-1.9117 1.032-1.3875 2.7832 0.18501 0.65671 0.30834 2.3454 0.24667 3.7526-0.0925 2.064-0.24667 2.6894-0.86336 3.5337-0.64752 0.87561-0.67836 1.0945-0.33918 1.6574 1.4492 2.3141 1.3567 2.877-0.64752 4.3781-0.64752 0.53163-1.2025 1.0632-1.2025 1.1883 0 0.15636-0.80169 1.1571-1.8192 2.2516-3.0834 3.3774-3.2376 4.253-0.61668 4.253 2.3434 0 4.0393-1.0632 4.5018-2.877 0.46252-1.7825 1.9734-3.4399 4.2243-4.597 1.5726-0.84434 2.1276-0.96943 4.1935-0.96943h2.4051l1.7576 1.4698c0.9867 0.84434 2.9293 2.5018 4.3476 3.7526 1.4184 1.2509 3.2993 2.8145 4.1935 3.4712 5.0877 3.7839 6.4135 4.8472 7.8011 6.3169 2.2201 2.3141 5.211 4.6908 5.951 4.6908 0.37002 0 1.3259-0.37527 2.1276-0.81307 1.6651-0.87561 1.2642-0.87561 10.268 0 5.4885 0.53162 7.2152 0.87561 8.1711 1.72 0.9867 0.90689 1.3259 1.032 3.4843 1.2822 2.6209 0.344 3.1451 0.9069 3.1451 3.3774 0 1.4072-0.185 2.0014-0.95586 3.221-0.49334 0.81306-1.11 1.6574-1.3567 1.845-0.24667 0.18764-0.49334 0.75053-0.61669 1.2509-0.0925 0.46908-0.64752 1.4072-1.2025 2.064-0.89419 1.0945-1.9117 2.7832-3.1451 5.1286-0.49335 0.96943-0.24667 2.064 1.2642 5.629 0.86335 2.064 1.1717 3.3148 1.3875 5.629 0.37001 3.909 0.37001 7.5053 0.03085 8.6311-0.18501 0.50034-0.37002 2.1578-0.43168 3.6588-0.15417 2.5643-0.12334 2.7832 0.61668 3.6588 0.9867 1.2196 1.5726 1.1883 3.6693-0.18763 0.95586-0.62544 2.5901-1.4072 3.6076-1.7825 1.6959-0.5629 2.0659-0.59417 4.2551-0.25018 2.3434 0.37527 2.4051 0.34399 4.286-0.5629 1.0484-0.53162 2.6209-1.4072 3.4843-1.9701 1.3875-0.90688 1.9117-1.032 4.0085-1.1571 1.7267-0.0626 2.8059 0.0626 3.731 0.40654 1.1717 0.46907 1.7267 0.46907 4.6868 0.12509 5.4577-0.62545 6.4752-0.53163 8.7569 0.59416l2.0042 0.96943 4.5943-0.28144c2.5592-0.15636 4.9335-0.46909 5.3035-0.68799 3.4843-1.9701 3.8235-2.0952 5.766-2.0952 1.6034 0 2.1276-0.15636 2.9909-0.7818 0.67835-0.53162 1.4492-0.78179 2.2509-0.78179 0.70919 0 1.7267-0.31273 2.5284-0.81307 1.2642-0.75053 1.5417-0.78181 5.2727-0.71926 3.5151 0.0625 3.9776 0.0313 4.2551-0.46908 1.4184-2.4392 2.8984-2.9396 4.7485-1.6261 0.64752 0.4378 1.3567 0.81307 1.5726 0.81307 0.64752 0 0.12334-2.533-0.70919-3.4399-1.48-1.5949-1.6342-2.2203-1.8501-6.2857l-0.18501-3.9403 0.92504-1.1883c1.11-1.4072 1.1409-1.9076 0.24667-4.5032-0.64752-1.7512-0.8942-2.1265-2.4359-3.1897-1.9734-1.3447-2.1276-1.6261-2.4667-4.1904-0.12333-1.032-0.33917-2.6268-0.46251-3.5337-0.24668-2.064 0.30834-2.877 2.0351-2.877 1.2642 0 1.6651-0.34398 1.9426-1.5949 0.15417-0.59417 0.67835-1.0632 1.9117-1.6887 2.4976-1.2822 2.5901-1.5011 2.2201-3.9403-0.15417-1.1258-0.21584-2.5956-0.0925-3.2523 0.33917-1.8138 2.6826-4.0966 5.8894-5.754 1.4492-0.7818 2.9293-1.7512 3.2684-2.1578 0.77085-1.0007 0.74001-2.4392-0.0309-3.7526-0.74002-1.1883-0.77085-2.189-0.15417-3.0021 0.74003-1.0007 0.55502-1.6261-0.92503-3.0334-1.9734-1.8763-1.9426-2.877 0.21584-4.6908 2.6826-2.2828 2.7751-2.7519 2.6826-12.071l-0.0925-7.9743 0.9867-0.84434c1.5417-1.2822 3.8543-3.1272 4.656-3.7526l0.74002-0.53162-0.86336-1.3134c-0.74002-1.1258-0.86336-1.7512-1.0792-4.5344-0.12334-1.7825-0.40085-3.565-0.61668-3.9715-0.21585-0.40654-0.49336-1.72-0.61669-2.9083-0.30834-2.877-1.5726-4.2217-4.7485-5.0661-1.6342-0.43781-2.0351-1.1258-1.3259-2.3454 0.67836-1.1258 0.49336-2.4079-0.49334-4.0654-0.58586-0.96943-0.67836-1.5323-0.64753-5.1599 0-2.2516 0.12335-4.6282 0.24668-5.3475 0.24667-1.2509 0.21584-1.3134-1.295-2.6268-0.83253-0.75053-2.4051-1.7825-3.4843-2.3141-1.6959-0.84434-2.2817-1.376-4.1318-3.7839-1.1717-1.5636-3.0834-3.7526-4.2243-4.9097-1.1409-1.1571-2.1892-2.3767-2.3742-2.6894-0.15416-0.28145-0.92502-0.87562-1.665-1.2509-1.3259-0.65671-1.5417-0.68798-3.3609-0.31272-2.7751 0.53162-9.3736 0.53162-10.638-0.06255-0.92503-0.40654-1.0792-0.37526-2.2509 0.28145-0.77086 0.43781-1.48 0.62544-1.8501 0.50035-0.33918-0.12509-1.4184-1.2196-2.3742-2.4392-0.95586-1.2509-2.8676-3.3774-4.2551-4.7533-1.3875-1.376-2.9601-3.0959-3.5151-3.8464-0.95587-1.2509-1.665-1.6261-2.0042-1.032z" />
+                                                    <text style="text-anchor: start; font-size: 8px; cursor: pointer;" x="111" y="111" text-anchor="start" font-size="8px" stroke="none" fill="#ffffff"><tspan dy="3.1588430404663086">NORTH</tspan></text>
+                                                </a>
+                                                <a xlink:href="/district/index?DistCode=1102" target="_blank">
+                                                    <path d="m40.391 131.46c-2.4976 1.032-2.9601 1.4698-4.0393 3.7839-0.58585 1.3447-1.48 2.6894-2.1276 3.2836-1.0792 0.96943-1.1409 0.96943-4.4093 0.96943-3.5459 0-4.0701 0.18764-4.0701 1.4698 0 0.50034-1.0484 1.7825-3.3918 4.1904l-3.3918 3.5024v2.1265c0 1.9701-0.0925 2.3141-1.0484 3.6901-0.58585 0.84434-1.4184 2.4392-1.8809 3.5963-0.80169 2.0327-0.80169 2.1265-0.33918 3.3461 0.77086 1.9389 0.64752 2.6581-0.83253 4.2843-2.0967 2.3141-4.0085 5.5664-3.7926 6.4108 0.12334 0.59417 3.5768 4.1592 5.8277 6.0355 0.43168 0.37527 0.52418 0.96944 0.52418 3.5025 0 2.7519-0.06167 3.1585-0.64752 3.6901-0.37001 0.31273-1.2334 1.3447-1.9426 2.2829-2.9601 3.909-3.2684 4.4406-3.2684 5.7853-0.03084 0.68798-0.21584 1.6261-0.46251 2.064-0.74002 1.3134-0.52418 1.8763 1.5417 4.0966l2.0042 2.1578v2.6894c0 2.533-0.06167 2.7207-0.86336 3.5025-0.46251 0.46907-1.295 1.0945-1.8501 1.376-0.95586 0.53162-0.9867 0.59417-0.9867 2.5643 0 2.3141-0.30834 3.3148-1.3875 4.6282-0.64752 0.7818-0.77086 1.2509-0.77086 3.1272 0 2.2516-0.43168 3.6276-2.1892 6.9111-0.33918 0.65671-0.52418 1.3134-0.43168 1.4698 0.092503 0.15636 1.0175 0.2189 2.0967 0.12509 1.8809-0.18763 1.9426-0.15636 3.6076 1.0945 0.92503 0.71926 2.0351 1.376 2.4667 1.4698 2.8059 0.5629 4.0085 2.1265 4.0085 5.1286 0 1.4385 0.18501 2.4392 0.61669 3.2836 0.40085 0.78181 0.61669 1.845 0.61669 2.9708 0 1.3447 0.185 2.0014 0.86336 3.0021 0.46251 0.71926 1.0484 1.72 1.3259 2.2203 0.46252 0.87561 0.64752 0.93815 2.6518 1.0945 1.5725 0.12509 2.5284 0.37526 3.5459 1.0007 0.80169 0.46908 2.3126 0.96943 3.3918 1.1571 1.0484 0.18763 2.0659 0.43781 2.2201 0.62544 0.52418 0.50035 1.0792 0.31272 1.5417-0.62544 0.24668-0.46908 0.86336-1.032 1.3259-1.2196 0.92503-0.34399 5.3652-0.71925 9.5586-0.81307l2.5284-0.0313 1.48 1.5011c1.48 1.4385 2.1584 1.7512 2.7443 1.1883 0.15417-0.15636 1.0484-0.5629 1.9734-0.90688 4.2243-1.5949 5.396-2.0952 5.4885-2.3141 0.27751-0.62544 2.4359-3.6588 3.5151-4.9097 0.64752-0.75053 1.1717-1.6887 1.1717-2.0327 0-1.4698 3.7926-4.253 5.7968-4.253 1.5726 0 1.8192-0.37527 1.0175-1.5323-0.37002-0.50036-0.64753-1.0632-0.64753-1.2196 0-0.53163-2.3434-3.221-3.3301-3.8152-1.1717-0.75052-1.7576-1.845-2.1892-4.1592-0.37001-2.1265-1.11-3.1897-3.4843-5.0661-2.0351-1.6261-2.7751-3.2523-2.0967-4.5344 0.83253-1.5949 2.8368-3.4086 3.9776-3.6276 1.5417-0.28144 2.8059-1.0007 2.8059-1.5636 0-0.28144-0.77085-1.2196-1.6959-2.1265-1.3567-1.2822-1.6959-1.8138-1.6959-2.5956 0-0.87561 0.27751-1.2196 2.2817-2.7519 3.2376-2.4705 4.0701-3.5337 4.3476-5.4413 0.24667-1.9076 0.67835-2.2203 3.0834-2.2203 1.5725 0 1.8192-0.0938 2.6518-1.032 0.95586-1.0632 1.8192-2.5643 1.8192-3.1897 0-0.81307-1.1409-1.3447-3.2993-1.5323l-2.2509-0.21889v0.7818c0 1.4072-2.2509 2.3141-4.3168 1.7512-1.48-0.40653-1.7267-0.81307-2.0967-3.6901-0.18501-1.2509-0.61668-2.7206-0.95586-3.3148-0.67836-1.0632-0.86336-2.8145-0.37001-3.1585 0.15417-0.0938 0.37001-0.59417 0.49335-1.1258 0.15417-0.71926 0.03084-1.1571-0.55502-1.9389-1.11-1.501-1.7576-2.9083-1.7576-3.8464 0-0.46908 0.55502-1.8138 1.2334-2.9708 0.67835-1.1571 1.2334-2.3767 1.2334-2.6894 0-0.344-0.55502-1.1571-1.2642-1.8138-2.2509-2.2203-4.286-5.7228-4.286-7.3489 0-0.53162 0.24668-1.4072 0.52418-1.9701 0.27751-0.56289 0.61668-1.8763 0.74002-2.9083 0.21584-2.189 1.1717-3.7526 2.9293-4.7846 1.5109-0.90689 1.6034-1.4385 0.37001-2.4392-0.55502-0.46909-1.9117-1.72-2.9909-2.8145s-2.8676-2.6581-4.0085-3.4399c-2.9601-2.1265-6.7835-5.0973-6.9686-5.41-0.0925-0.15636-1.6342-1.501-3.3918-2.9708-3.4534-2.877-4.4401-3.2836-6.1669-2.5643z" />
+                                                    <text style="text-anchor: start;font-size: 8px; cursor: pointer;" x="25" y="200" text-anchor="start" font-size="8px" stroke="none" fill="#ffffff"><tspan dy="3.1588430404663086">WEST</tspan></text>
+                                                </a>
+                                                <a xlink:href="/district/index?DistCode=1103" target="_blank">
+                                                    <path d="m72.582 149.57c-0.80169 0.62543-3.4226 1.845-5.4885 2.533-1.295 0.43781-3.731 2.8145-3.731 3.6276 0 0.90688-0.86336 4.0966-1.2025 4.5344-0.70919 0.84435 2.2201 5.285 4.3785 6.6609l1.2334 0.78181-0.21584 1.9076c-0.12334 1.1883-0.49335 2.4079-1.0175 3.3148-1.11 1.9076-1.0792 3.6588 0.03085 5.3162 0.77085 1.1258 0.83253 1.4385 0.77085 3.8464-0.03085 1.8763 0.09251 3.0021 0.49335 4.0966 0.61668 1.72 1.1717 2.0952 1.9734 1.3447 0.67835-0.62545 1.8809-0.62545 3.7618-0.0626 0.80169 0.25018 2.0659 0.43781 2.8368 0.43781 2.2201 0 3.2993 1.032 3.7618 3.5963 0.24667 1.376-0.83253 3.6276-2.5592 5.3162-0.98669 1.0007-1.5417 1.2509-2.8676 1.4072l-1.6034 0.2189-0.61669 1.8138c-0.49334 1.5323-0.92503 2.1265-3.1759 4.1904l-2.5901 2.4079 1.1409 1.1883c0.92504 0.96943 1.1409 1.4385 1.2642 2.8145 0.15417 2.1265-0.58584 3.1585-2.7134 3.8152-2.0351 0.62543-3.7001 1.9076-3.7001 2.877 0 0.5629 0.37001 1.0007 1.48 1.6887 2.1276 1.3134 4.1318 4.3468 4.3168 6.5358 0.12334 1.5323 0.27751 1.7825 2.0967 3.6588 3.2993 3.4086 5.4268 7.2864 4.7176 8.5998-0.40084 0.81306-1.5109 1.2196-3.2068 1.2196-2.3126 0-3.9776 1.0632-4.9027 3.1272-0.83253 1.8138-1.9117 3.4399-2.6209 3.9403-0.33918 0.25018-0.64752 0.81307-0.64752 1.2196 0 0.6567 0.21584 0.7818 1.7884 1.0945 2.4976 0.53163 3.0218 0.84435 4.101 2.533 1.4492 2.2829 2.4359 2.7832 5.6118 2.7832 2.5284 0 2.7134 0.0313 3.7618 0.96943 1.0175 0.90688 1.2025 0.96943 2.5592 0.7818 3.8235-0.5629 4.9027-0.5629 7.9244 0.0938 1.6651 0.37527 3.9159 1.0945 4.9952 1.6262l1.9117 0.90688 2.2509-2.189c1.2334-1.2196 2.3742-2.6581 2.5592-3.1897 0.43168-1.4385 2.0659-2.4392 3.8543-2.4392 1.2334 0 1.6959-0.18763 3.1759-1.376 0.95587-0.75053 2.3126-1.5011 3.0526-1.6887 2.0967-0.53162 2.2509-1.1571 1.0175-3.6901-0.77085-1.5323-1.295-2.2203-1.9734-2.5018-1.2642-0.53163-3.5151-2.9396-4.3168-4.597-0.70919-1.4698-0.8017-2.7832-0.33918-4.8472 0.58586-2.4705-0.8942-5.4413-2.8984-5.8791-1.8501-0.40654-7.0611-3.8152-8.4178-5.5039-1.5109-1.8763-1.4184-3.1897 0.37001-5.41 1.1409-1.4072 1.4184-2.0014 1.5417-3.3148 0.185-2.0327 1.9117-4.1904 4.3168-5.4413 0.92502-0.46908 2.0351-1.1883 2.4667-1.5949l0.80169-0.75053-1.3876-1.5949c-1.2642-1.4385-1.4184-1.7512-1.4184-3.0959 0-1.1571 0.18501-1.72 0.77087-2.4392 0.43168-0.53162 0.77085-1.0632 0.77085-1.2509 0-0.50036-1.0175-0.62544-2.7134-0.344-1.4801 0.21891-2.4359 0.71926-4.5327 2.4392-1.295 1.032-4.1626 0.84434-5.766-0.37526-1.9734-1.5636-2.2201-2.4705-1.9117-7.6929 0.52418-9.6318 0.21584-14.197-1.1717-16.512-1.295-2.1578-1.3567-6.3795-0.09251-7.6616 0.37002-0.40653 0.77086-1.0945 0.8942-1.5636 0.0925-0.46908 0.80169-1.5636 1.5726-2.4392 0.95586-1.0945 1.3875-1.8763 1.3875-2.4705s0.46252-1.4698 1.3875-2.5956c0.77086-0.93816 1.3875-1.8763 1.3875-2.064 0-0.50035-0.77085-0.84435-3.0526-1.4385-1.0484-0.28144-2.3434-0.7818-2.8059-1.1258-1.0484-0.75053-3.3918-1.2509-5.9202-1.2509-1.0175 0-2.1276-0.15635-2.4976-0.34399-0.33917-0.21891-1.3259-0.40653-2.1892-0.46908-0.83253-0.0625-1.6651-0.25017-1.8501-0.43781-0.49335-0.50035-1.5109-0.34399-2.3742 0.37527z" />
+                                                    <text style="text-anchor: start;  font-size: 8px; cursor: pointer;" x="78" y="240" text-anchor="start" font-size="8px" stroke="none" fill="#ffffff"><tspan dy="3.1588430404663086">SOUTH</tspan></text>
+                                                </a>
+                                                <a xlink:href="/district/index?DistCode=1104" traget="_blank">
+                                                    <path d="m168.91 186.03c-0.95587 1.1258-1.0175 1.1571-3.0834 1.0945-1.1409 0-2.9293-0.0938-3.9776-0.15636-1.665-0.0938-1.9734 0-2.8676 0.75052-0.77086 0.68798-1.3259 0.87562-2.4359 0.87562-1.11 0-1.8501 0.28145-3.1143 1.0945-1.5417 1.0007-1.8192 1.0633-3.3918 0.9069-1.5726-0.15637-1.8501-0.0938-3.0218 0.78179-0.74003 0.5629-1.8809 1.032-2.6209 1.1571-0.74002 0.0938-1.8192 0.37527-2.4359 0.65671-0.80169 0.31272-1.6342 0.40655-2.7751 0.28145-2.0659-0.25017-2.4976-0.25017-4.4401 0-1.3259 0.15636-1.8809 0-4.0085-0.96943-2.3434-1.0945-2.5592-1.1258-4.0084-0.81307-0.83253 0.18764-2.1584 0.40654-2.9293 0.50036-0.77086 0.0938-2.0967 0.25017-2.9909 0.34398-1.3875 0.18764-1.8501 0.0626-3.2376-0.6567-2.1276-1.1258-2.9909-0.96943-7.2769 1.4072-2.7134 1.5323-3.731 2.2829-4.7176 3.565-0.70918 0.87562-1.3567 1.7825-1.4184 2.0014-0.0925 0.21891 0.24667 0.93816 0.74001 1.5636 1.3259 1.6887 1.6342 2.3767 1.6342 3.7214 0 1.6261-0.33918 2.0014-3.2684 3.7526-3.2684 1.9701-4.1318 3.0334-4.4093 5.3475-0.21584 1.8763-1.4492 3.9403-2.5593 4.3155-0.83253 0.25018-0.67835 0.50035 0.92504 1.5323 0.80169 0.50036 2.0042 1.4385 2.6826 2.064 0.74002 0.6567 2.0967 1.4072 3.3609 1.8763 2.4051 0.84434 3.5151 1.7825 4.5018 3.909 0.89419 1.8763 1.11 3.8464 0.61668 5.9104-0.37001 1.5323-0.33917 1.7512 0.24667 2.7206 0.33918 0.5629 1.2642 1.6262 2.0042 2.3767 1.5109 1.5011 1.9117 1.5949 5.1493 1.032 4.5635-0.7818 5.4577-0.96943 6.7836-1.5636 1.2334-0.53162 2.2201-0.62544 7.4619-0.68798l6.0744-0.0626 2.2509 1.4385c2.7134 1.6887 5.7968 3.3461 6.2902 3.3461 0.21583 0 0.4625-0.53162 0.58585-1.1883 0.40084-2.2828 2.6826-3.7526 5.1802-3.3774 1.11 0.18764 1.6959 0.62544 3.916 2.877 1.6034 1.6261 3.2068 2.9396 4.101 3.3461 1.0484 0.50035 1.5109 0.90688 1.6342 1.4698 0.33917 1.6574 1.1717 3.6275 1.7884 4.3155l0.64752 0.71925 0.52418-0.65671c0.30835-0.37526 0.55502-0.90688 0.55502-1.1571 0-0.25017 0.49335-0.65671 1.0792-0.90688 1.1717-0.50036 1.1717-0.46908 1.0792-2.9396-0.0617-2.3454 0.61668-3.1898 3.3301-4.0654 2.3742-0.7818 3.1451-1.5011 3.1451-3.0334 0-0.84435 0.30834-1.376 1.48-2.6581 1.3567-1.4698 1.4492-1.6887 1.4492-3.1897 0-0.87562-0.21584-2.2516-0.46251-3.0647-0.40085-1.4072-0.40085-1.5636 0.18501-2.3454 0.43168-0.59417 1.3567-1.1258 2.9293-1.6887 1.2642-0.43781 3.1142-1.1883 4.1318-1.6887 1.7267-0.84434 2.1892-0.90688 7.2461-1.0945 4.7176-0.18764 5.581-0.31273 6.7836-0.90689 0.77085-0.37526 1.7267-0.87561 2.1584-1.0632 1.0792-0.56289 1.1717-1.845 0.18501-2.7832-1.6959-1.6262-1.6959-3.6275 0.0309-5.2537 0.58584-0.5629 1.295-1.376 1.5725-1.8138 0.46252-0.71926 0.46252-0.7818-0.0925-1.1883-0.30835-0.25017-0.77085-0.4378-1.0175-0.4378-0.86335 0-3.9159-2.0014-5.4885-3.5963-1.11-1.1258-1.6342-1.9389-1.7884-2.7519-0.15417-0.90689-0.49335-1.3447-1.3875-1.9076-1.0484-0.68798-1.4184-1.2509-2.0042-3.0959-0.21584-0.6567-0.86336-0.68798-2.0659-0.0313-1.2025 0.62545-1.6342 0.43781-3.8234-1.4698-1.0175-0.87562-2.3434-1.845-2.9293-2.1578-2.2817-1.2822-3.1451-2.2516-3.2993-3.9403-0.21584-1.7512-0.43168-2.0014-2.0042-2.0014-0.74003 0-1.6034-0.31272-2.4976-0.93816-0.77085-0.53162-1.4184-0.93816-1.48-0.90688-0.0617 0-0.55502 0.53162-1.11 1.157z" />
+                                                    <text style="text-anchor: start; font-size: 8px; cursor: pointer;" x="130" y="215" text-anchor="start" font-size="8px" stroke="none" fill="#ffffff"><tspan dy="3.1588430404663086">EAST</tspan></text>
+
+                                                </a>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="sec-title mb-30">
+                    <h2>INTERACTIVE STATE MAP</h2>
+                    <p>District wise interface</p>
+                </div>
+                <p class="mobile-mb-50">
+                    Click on the map to view district wise uploads.
+                </p>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Courses End -->
+<!-- Counter Up Section Start-->
+<div class="rs-counter pt-45 pb-45 bg3">
+    <div class="container">
+        <div class="sec-title white-text mb-50 text-center">
+            <h2>Total Files</h2>
+            <p>Files uploaded in Sikkim Repository System</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="rs-counter-list">
+                    <h2 class="counter-number plus">@Model.GenContentCount.Testimonials</h2>
+                    <h4 class="counter-desc">TESTIMONIALS</h4>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="rs-counter-list">
+                    <h2 class="counter-number plus">@Model.GenContentCount.Videos</h2>
+                    <h4 class="counter-desc">VIDEOS</h4>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="rs-counter-list">
+                    <h2 class="counter-number plus">@Model.GenContentCount.Images</h2>
+                    <h4 class="counter-desc">IMAGES</h4>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="rs-counter-list">
+                    <h2 class="counter-number plus">@Model.GenContentCount.CaseStudies</h2>
+                    <h4 class="counter-desc">CASE STUDIES</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Counter Up Section End -->
+<!-- Category Start -->
+@foreach (var Category in Model.GenComponentModelList.GroupBy(x => x.CategoryName))
+{
+    <div id="rs-events" class="rs-events sec-spacer-30">
+        <div class="container">
+            <div class="row rs-vertical-middle">
+                <div class="col-lg-12 col-md-12">
+                    <div class="sec-title mb-30 text-center">
+                        <h2 class="text-uppercase">@Category.Key</h2>
+                        <p>Components across the State</p>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12">
+                    <div id="accordion" class="rs-accordion-style1">
+                        <div class="row">
+                            @foreach (var Component in Category.GroupBy(x => x.ComponentID))
+                            {
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-header" id="@Component.Key">
+                                            <h3 class="acdn-title collapsed" data-toggle="collapse" data-target="#C_@Component.Key" aria-expanded="false" aria-controls="@Component.Key">
+                                                @Component.Select(x => x.ComponentName).FirstOrDefault()
+                                            </h3>
+                                        </div>
+                                        <div id="C_@Component.Key" class="collapse" aria-labelledby="@Component.Key" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <ol>
+                                                    @foreach (var subitem in Component.GroupBy(x => x.SubComponentID))
+                                                    {
+                                                        if (subitem.Count() != 0)
+                                                        {
+                                                            <li>
+                                                                <a href="/home/GetContentBySubComp?CID=@subitem.Select(x=>x.ComponentID).FirstOrDefault()&SCID=@subitem.Key">@subitem.Select(x => x.SubComponentName).FirstOrDefault()</a>
+                                                            </li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li>
+                                                                No Sub Component Found.
+                                                            </li>
+                                                        }
+                                                    }
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<!-- Category End -->
+<!-- Latest Video Start -->
+<div id="rs-latest-news" class="rs-latest-news  sec-spacer-50">
+    <div class="container">
+        <div class="row rs-vertical-middle">
+            <div class="col-lg-4 col-md-12">
+                <div class="sec-title mb-30">
+                    <h2>VIDEOS</h2>
+                    <p>View Latest Videos</p>
+                </div>
+                <div class="">
+                    <div class="rs-products">
+                        <div class="view-btn mt-1 text-center float-left">
+                            <a href="/videos/index">VIEW ALL</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="latest-news-slider">
+                            @foreach (var item in Model.GenVideos)
+                            {
+                                if (@item.VideoFilePathPublished != null)
+                                {
+                                    string[] vArr = item.VideoFilePathPublished.Split('?');
+                                    string vLink = "https://www.youtube.com/embed/" + vArr[1].Substring(2);
+                                    <div>
+                                        <div class="news-normal-block">
+                                            <div class="news-img">
+                                                <iframe style="width: 100%;height: 328px; display:block" src="@vLink"></iframe>
+                                            </div>
+                                            <div class="news-date">
+                                                <i class="fa fa-calendar-check-o"></i>
+                                                <span>@item.ProgramDate.ToString("dd MMM yyyy")</span>
+                                            </div>
+                                            <h4 class="news-title"><a href="blog-details.html">@item.VideoAlbumTitle</a></h4>
+                                            <div class="news-desc">
+                                                &nbsp;
+                                                @*<p>
+                                                        @item.VideoAlbumDesc
+                                                    </p>*@
+                                            </div>
+                                            <div class="news-btn">
+                                                <a href="/videos/index" target="_blank">Go to Album</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    string[] fileArr = item.VideoFilePathDraft.Split('/');
+                                    string vlink = @item.VideoFilePathDraft;
+                                    <div>
+                                        <div class="news-normal-block">
+                                            <div class="news-img">
+                                                <iframe style="width: 100%;height: 328px; display:block" src="@vlink"></iframe>
+                                            </div>
+                                            <div class="news-date">
+                                                <i class="fa fa-calendar-check-o"></i>
+                                                <span>@item.ProgramDate.ToString("dd MMM yyyy")</span>
+                                            </div>
+                                            <h4 class="news-title"><a href="blog-details.html">@item.VideoAlbumTitle</a></h4>
+                                            <div class="news-desc">
+                                                &nbsp;
+                                                @*<p>
+                                                        @item.VideoAlbumDesc
+                                                    </p>*@
+                                            </div>
+                                            <div class="news-btn">
+                                                <a href="/videos/index" target="_blank">Go to Album</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="latest-news-nav">
+                            @foreach (var thumb in Model.GenVideos)
+                            {
+                                if (@thumb.VideoFilePathPublished != null)
+                                {
+                                    string[] vArr = thumb.VideoFilePathPublished.Split('?');
+                                    string vLink = "https://www.youtube.com/embed/" + vArr[1].Substring(2);
+                                    <div>
+                                        <iframe style="height:125px; width:100%; display:block;" src="@vLink"></iframe>
+                                    </div>
+                                }
+                                else
+                                {
+                                    string[] fileArr = @thumb.VideoFilePathDraft.Split('/');
+                                    string vlink = @thumb.VideoFilePathDraft;
+                                    <div>
+                                        <iframe style="height:125px; width:100%; display:block;" src="@vlink"></iframe>
+                                    </div>
+                                }
+
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Latest Video End -->
+<!-- Gallery Start -->
+<div class="rs-gallery-4 rs-gallery sec-color sec-spacer-50">
+    <div class="container">
+        <div class="sec-title-2 mb-50 text-center">
+            <h2>IMAGES</h2>
+            <p>View Latest Images</p>
+        </div>
+        <div class="row">
+            @foreach (var item in Model.GenImages)
+            {
+                <div class="col-lg-3 col-md-6">
+                    <div class="gallery-item mb-4">
+                        <img src="@item.ImageFilePathNormal" alt="Gallery Image" />
+                        <div class="gallery-desc">
+                            <h3><a href="#">@item.ImageAlbumTitle</a></h3>
+                            <p>@item.ProgramDate.ToString("dd MMM yyyy")</p>
+                            <a class="image-popup" href="@item.ImageFilePathNormal" title="@item.ImageAlbumDesc">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="rs-products">
+                    <div class="view-btn">
+                        <a href="/images/index">VIEW ALL</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Gallery End -->
+<!-- Testimonial Start -->
+<div id="rs-testimonial" class="rs-testimonial bg5 sec-spacer-50">
+    <div class="container">
+        <div class="row rs-vertical-middle">
+            <div class="col-lg-4 col-md-12">
+                <div class="sec-title mb-30">
+                    <h2 class="white-color">TESTIMONIALS</h2>
+                    <p class="white-color">View latest Testimonials</p>
+                </div>
+                <div class="rs-products">
+                    <div class="view-btn mt-1 text-center float-left">
+                        <a href="/testimonials/index">VIEW ALL</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8  col-md-12">
+                <div class="rs-carousel owl-carousel" data-loop="true" data-items="2" data-margin="30" data-autoplay="true" data-autoplay-timeout="5000" data-smart-speed="1200" data-dots="true" data-nav="true" data-nav-speed="false" data-mobile-device="1" data-mobile-device-nav="true" data-mobile-device-dots="true" data-ipad-device="2" data-ipad-device-nav="true" data-ipad-device-dots="true" data-md-device="2" data-md-device-nav="true" data-md-device-dots="true">
+                    @foreach (var item in Model.GenTestimonials)
+                    {
+                        <div class="testimonial-item">
+                            <div class="testi-img">
+                                <img src="@item.ImagePath" alt="@item.Name">
+                            </div>
+                            <div class="testi-desc">
+                                <h4 class="testi-name">@item.Name</h4>
+                                <small class="">@item.Address</small><br />
+                                <small class="">@item.TestimonialDate.ToString("dd MMM yyyy")</small>
+                                <p class="text-ellipsis">
+                                    @item.Remarks
+                                </p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Testimonial End -->
+<!-- Products Start -->
+<div id="rs-products" class="rs-products sec-spacer-50 mb-5">
+    <div class="container">
+        <div class="row rs-vertical-middle">
+            <div class="col-lg-4 col-md-12">
+                <div class="sec-title mb-30">
+                    <h2>CASE STUDIES</h2>
+                    <p>View Latest Case Studies</p>
+                </div>
+                <div class="rs-products">
+                    <div class="view-btn mt-1 text-center float-left">
+                        <a href="/casestudies/index">VIEW ALL</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8  col-md-12">
+                <div class="rs-carousel owl-carousel" data-loop="true" data-items="3" data-margin="30" data-autoplay="false" data-autoplay-timeout="5000" data-smart-speed="1200" data-dots="true" data-nav="true" data-nav-speed="false" data-mobile-device="1" data-mobile-device-nav="false" data-mobile-device-dots="true" data-ipad-device="2" data-ipad-device-nav="false" data-ipad-device-dots="true" data-md-device="3" data-md-device-nav="true" data-md-device-dots="true">
+                    @foreach (var item in Model.GenCaseStudies)
+                    {
+                        string[] fileArr = item.CaseStudyFilePath.Split('/');
+                        <div class="product-item p-2 min-vh-50">
+                            <div class="product-img">
+                                <a href="#">
+                                    <i class="fa fa-file-pdf fa-2x bg-secondary">&nbsp;</i>
+                                </a>
+                            </div>
+                            <h4 class="product-title"><a href="@item.CaseStudyFilePath" target="_blank">@item.CaseStudyTitle</a></h4>
+                            <small>@item.CaseStudyDate.ToString("dd MMM yyyy")</small>
+                            @if (@item.CaseStudyDesc.Length > 100)
+                            {
+                                <span class="product-price text-justify">@item.CaseStudyDesc.Substring(0, 100) ....</span>
+                            }
+                            else
+                            {
+                                <span class="product-price text-justify">@item.CaseStudyDesc.</span>
+                            }
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Products End -->
